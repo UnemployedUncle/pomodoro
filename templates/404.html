@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block title %}Page Not Found - Focus App{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-6 text-center">
+        <div class="card shadow-lg border-0">
+            <div class="card-body p-5">
+                <i class="fas fa-exclamation-triangle text-warning mb-4" style="font-size: 4rem;"></i>
+                <h2 class="text-warning mb-3">Page Not Found</h2>
+                <p class="text-muted mb-4">
+                    The page you're looking for doesn't exist. 
+                    Maybe you got distracted during your focus session?
+                </p>
+                <a href="{{ url_for('index') }}" class="btn btn-primary btn-lg">
+                    <i class="fas fa-home me-2"></i>Back to Timer
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

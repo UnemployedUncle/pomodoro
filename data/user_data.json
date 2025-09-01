@@ -1,0 +1,33 @@
+{
+  "photo_keywords": [
+    "car"
+  ],
+  "quote_keywords": [
+    "time"
+  ],
+  "completed_packages": [
+    {
+      "photos": [
+        {
+          "url": "https://source.unsplash.com/800x600/?car",
+          "alt": "Photo related to car",
+          "keyword": "car",
+          "filename": "car_20250901_205420.jpg"
+        }
+      ],
+      "quotes": [
+        {
+          "text": "Motivation is what gets you started. Habit is what keeps you going. - Jim Ryun",
+          "keyword": "time",
+          "filename": "time_20250901_205420.txt"
+        }
+      ],
+      "completed_at": "2025-09-01T20:54:20.939226"
+    }
+  ],
+  "current_package": {
+    "photos": [],
+    "quotes": [],
+    "completed_at": null
+  }
+}

@@ -1,0 +1,344 @@
+/* Custom styles for Pomodoro Focus App */
+
+body {
+    font-family: Helvetica, Arial, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Header */
+.app-header {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    padding: 1rem 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.app-title {
+    color: white;
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin: 0;
+    font-family: Helvetica, Arial, sans-serif;
+}
+
+.app-title-link {
+    color: white;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.app-title-link:hover {
+    color: rgba(255, 255, 255, 0.8);
+    text-decoration: none;
+}
+
+/* Top Right Icons */
+.top-right-icons {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+.top-icon {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 1.1rem;
+    transition: all 0.2s ease;
+    text-decoration: none;
+    padding: 0.5rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+}
+
+.top-icon:hover {
+    color: white;
+    background: rgba(255, 255, 255, 0.1);
+    transform: scale(1.1);
+    text-decoration: none;
+}
+
+.top-icon i {
+    transition: transform 0.2s ease;
+}
+
+.top-icon:hover i {
+    transform: scale(1.1);
+}
+
+/* Main Content */
+.main-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 2rem 0;
+}
+
+/* Timer Container */
+.timer-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* Timer Display */
+.timer-display {
+    text-align: center;
+    margin-bottom: 2rem;
+    padding: 3rem;
+}
+
+.timer-display h1 {
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    margin-bottom: 0.5rem;
+    font-size: 4rem;
+    font-weight: 700;
+}
+
+/* Control Buttons */
+.control-buttons {
+    margin-bottom: 2rem;
+}
+
+.btn-group .btn {
+    border-radius: 10px;
+    margin: 0 2px;
+    font-weight: 500;
+}
+
+/* Status and Package Sections */
+.status-section,
+.package-section {
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+/* Setup Card */
+.setup-card {
+    margin-bottom: 2rem;
+}
+
+/* Container Classes */
+.setup-container,
+.rewards-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+/* Progress Section */
+.progress-section {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 0.5rem 1rem;
+    z-index: 999;
+}
+
+.session-progress-container,
+.current-session-progress-container {
+    margin-bottom: 0.5rem;
+}
+
+.session-progress-container:last-child {
+    margin-bottom: 0;
+}
+
+/* Progress Bars */
+.progress {
+    border-radius: 2px;
+    overflow: hidden;
+    background-color: rgba(255, 255, 255, 0.2);
+    border: none;
+    height: 4px;
+}
+
+.progress-bar {
+    transition: width 0.8s ease-in-out;
+    border-radius: 2px;
+}
+
+.progress-bar {
+    transition: width 0.3s ease;
+    border-radius: 2px;
+}
+
+/* Progress Bars */
+.progress {
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.progress-bar {
+    transition: width 0.3s ease;
+}
+
+/* Cards */
+.card {
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+}
+
+.card-header {
+    border-radius: 15px 15px 0 0 !important;
+}
+
+/* Buttons */
+.btn {
+    border-radius: 10px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.btn-lg {
+    padding: 0.75rem 1.5rem;
+    font-size: 1.1rem;
+}
+
+/* Form Controls */
+.form-control {
+    border-radius: 10px;
+    border: 2px solid #e9ecef;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.form-control:focus {
+    border-color: #667eea;
+    box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+}
+
+/* Switch Toggle */
+.form-check-input {
+    width: 3rem;
+    height: 1.5rem;
+    border-radius: 1rem;
+}
+
+.form-check-input:checked {
+    background-color: #28a745;
+    border-color: #28a745;
+}
+
+/* Alerts */
+.alert {
+    border-radius: 10px;
+    border: none;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .timer-display {
+        padding: 2rem;
+        margin: 1rem 0;
+    }
+    
+    .timer-display h1 {
+        font-size: 3rem;
+    }
+    
+    .btn-group {
+        flex-direction: column;
+        width: 100%;
+    }
+    
+    .btn-group .btn {
+        margin: 2px 0;
+        border-radius: 10px;
+    }
+    
+    .top-right-icons {
+        gap: 0.5rem;
+    }
+    
+    .top-icon {
+        width: 35px;
+        height: 35px;
+        font-size: 1rem;
+    }
+}
+
+/* Animation Classes */
+.fade-in {
+    animation: fadeIn 0.5s ease-in;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.pulse {
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+/* Session Type Colors */
+.session-focus {
+    color: #dc3545;
+}
+
+.session-break {
+    color: #28a745;
+}
+
+.session-long-break {
+    color: #17a2b8;
+}
+
+/* Reward Package Styles */
+.reward-card {
+    border: 2px solid #28a745;
+    background: linear-gradient(135deg, #f8fff9 0%, #e8f5e8 100%);
+}
+
+.quote-card {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    border-left: 4px solid #28a745;
+}
+
+.photo-card img {
+    transition: transform 0.2s ease;
+}
+
+.photo-card:hover img {
+    transform: scale(1.05);
+}
+
+/* Loading Spinner */
+.spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #3498db;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+} 

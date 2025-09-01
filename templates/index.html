@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% block title %}Pomodoro Timer - Focus App{% endblock %}
+
+{% block content %}
+<div class="timer-container">
+    <!-- Timer Display -->
+    <div class="timer-display">
+        <h1 class="display-1 fw-bold text-white" id="timerDisplay">25:00</h1>
+        <p class="text-white mb-0" id="sessionType">Timer</p>
+    </div>
+
+    <!-- Control Buttons -->
+    <div class="control-buttons">
+        <div class="btn-group" role="group">
+            <button type="button" class="btn btn-primary btn-lg" id="startBtn">
+                <i class="fas fa-play me-2"></i>Start
+            </button>
+            <button type="button" class="btn btn-warning btn-lg" id="pauseBtn" style="display: none;">
+                <i class="fas fa-pause me-2"></i>Pause
+            </button>
+            <button type="button" class="btn btn-secondary btn-lg" id="resetBtn">
+                <i class="fas fa-redo me-2"></i>Reset
+            </button>
+        </div>
+    </div>
+
+    <!-- Package Ready Alert -->
+    <div id="packageReady" class="package-section" style="display: none;">
+        <div class="alert alert-success">
+            <i class="fas fa-gift me-2"></i>
+            <strong>Congratulations!</strong> You've completed 4 focus sessions!
+            <br>
+            <a href="{{ url_for('rewards') }}" class="btn btn-success btn-sm mt-2">
+                <i class="fas fa-gift me-1"></i>Collect Your Rewards
+            </a>
+        </div>
+    </div>
+</div>
+
+<!-- Progress Bars at Bottom -->
+<div class="progress-section">
+    <!-- 4 Session Progress Bar -->
+    <div class="session-progress-container">
+        <div class="progress" style="height: 4px;">
+            <div class="progress-bar bg-success" id="cycleProgress" role="progressbar" style="width: 0%"></div>
+        </div>
+    </div>
+    
+    <!-- Current Session Progress Bar -->
+    <div class="current-session-progress-container">
+        <div class="progress" style="height: 4px;">
+            <div class="progress-bar bg-primary" id="sessionProgress" role="progressbar" style="width: 0%"></div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/timer.js') }}"></script>
+{% endblock %} 

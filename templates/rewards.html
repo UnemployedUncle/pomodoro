@@ -1,0 +1,133 @@
+{% extends "base.html" %}
+
+{% block title %}Your Rewards - Focus App{% endblock %}
+
+{% block content %}
+<div class="rewards-container">
+    <!-- Current Package -->
+    {% if current_package and current_package.completed_at %}
+    <div class="card shadow-lg border-success mb-4">
+        <div class="card-header bg-success text-white">
+            <h4 class="mb-0">
+                <i class="fas fa-gift me-2"></i>Your Reward Package
+                <small class="float-end">{{ current_package.completed_at.split('T')[0] }}</small>
+            </h4>
+        </div>
+        <div class="card-body p-4">
+            <div class="row">
+                <!-- Photos Section -->
+                {% if current_package.photos %}
+                <div class="col-md-6 mb-4">
+                    <h5 class="text-primary mb-3">
+                        <i class="fas fa-image me-2"></i>Your Photos
+                    </h5>
+                    <div class="row">
+                        {% for photo in current_package.photos %}
+                        <div class="col-6 mb-3">
+                            <div class="card h-100">
+                                <img src="{{ photo.url }}" class="card-img-top" alt="{{ photo.alt }}" style="height: 150px; object-fit: cover;">
+                                <div class="card-body p-2">
+                                    <small class="text-muted">{{ photo.keyword }}</small>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endif %}
+
+                <!-- Quotes Section -->
+                {% if current_package.quotes %}
+                <div class="col-md-6 mb-4">
+                    <h5 class="text-success mb-3">
+                        <i class="fas fa-quote-left me-2"></i>Your Quotes
+                    </h5>
+                    {% for quote in current_package.quotes %}
+                    <div class="card mb-3 border-success">
+                        <div class="card-body">
+                            <blockquote class="blockquote mb-0">
+                                <p class="mb-2">{{ quote.text }}</p>
+                                <footer class="blockquote-footer">
+                                    <small class="text-muted">{{ quote.keyword }}</small>
+                                </footer>
+                            </blockquote>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% endif %}
+            </div>
+
+            <!-- Collect Button -->
+            <div class="text-center mt-4">
+                <a href="{{ url_for('collect_rewards') }}" class="btn btn-success btn-lg">
+                    <i class="fas fa-download me-2"></i>Collect Rewards
+                </a>
+                <p class="text-muted mt-2">
+                    <small>Collecting rewards will start a new Pomodoro cycle</small>
+                </p>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- No Package Available -->
+    {% if not current_package or not current_package.completed_at %}
+    <div class="card shadow-lg border-warning">
+        <div class="card-body text-center p-5">
+            <i class="fas fa-gift text-warning mb-3" style="font-size: 4rem;"></i>
+            <h4 class="text-warning mb-3">No Rewards Available Yet</h4>
+            <p class="text-muted mb-4">
+                Complete 4 focus sessions to receive your personalized reward package!
+            </p>
+            <a href="{{ url_for('index') }}" class="btn btn-primary btn-lg">
+                <i class="fas fa-clock me-2"></i>Start Pomodoro Session
+            </a>
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- Previous Packages -->
+    {% if completed_packages and completed_packages|length > 1 %}
+    <div class="card mt-4 border-info">
+        <div class="card-header bg-info text-white">
+            <h5 class="mb-0">
+                <i class="fas fa-history me-2"></i>Previous Reward Packages
+            </h5>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                {% for package in completed_packages[1:] %}
+                <div class="col-md-6 mb-3">
+                    <div class="card">
+                        <div class="card-header">
+                            <small class="text-muted">
+                                <i class="fas fa-calendar me-1"></i>
+                                {{ package.completed_at.split('T')[0] }}
+                            </small>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-6">
+                                    <small class="text-primary">
+                                        <i class="fas fa-image me-1"></i>
+                                        {{ package.photos|length }} photos
+                                    </small>
+                                </div>
+                                <div class="col-6">
+                                    <small class="text-success">
+                                        <i class="fas fa-quote-left me-1"></i>
+                                        {{ package.quotes|length }} quotes
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    {% endif %}
+</div>
+{% endblock %} 
