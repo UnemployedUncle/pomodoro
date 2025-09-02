@@ -40,13 +40,6 @@ class PomodoroTimer:
             self.pause_time = datetime.now()
             self.update_remaining_time()
     
-    def stop(self):
-        """Stop the timer"""
-        self.session_status = Config.SESSION_STATUS['idle']
-        self.start_time = None
-        self.pause_time = None
-        self.remaining_seconds = Config.get_duration_seconds(self.current_state)
-    
     def update_remaining_time(self):
         """Update remaining time based on elapsed time"""
         if self.session_status == Config.SESSION_STATUS['running'] and self.start_time:
@@ -104,8 +97,4 @@ class PomodoroTimer:
         
         total_duration = Config.get_duration_seconds(self.current_state)
         elapsed = total_duration - self.remaining_seconds
-        return min(100, (elapsed / total_duration) * 100)
-    
-    def get_cycle_progress(self):
-        """Get progress percentage for the entire cycle (4 sessions)"""
-        return (self.completed_sessions / self.total_sessions) * 100 
+        return min(100, (elapsed / total_duration) * 100) 

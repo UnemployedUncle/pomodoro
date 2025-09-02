@@ -113,7 +113,58 @@ body {
 .btn-group .btn {
     border-radius: 10px;
     margin: 0 2px;
-    font-weight: 500;
+    font-weight: 300;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    border: none;
+    background: transparent;
+    box-shadow: none;
+}
+
+/* Tap to Pause Circles */
+.tap-circles {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.circle {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 2px solid white;
+    background: transparent;
+    transition: all 0.3s ease;
+}
+
+.circle.filled {
+    background: white;
+    transform: scale(1.2);
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+/* Add subtle pulse animation for filled circles */
+@keyframes circlePulse {
+    0% { transform: scale(1.2); }
+    50% { transform: scale(1.3); }
+    100% { transform: scale(1.2); }
+}
+
+.circle.filled {
+    animation: circlePulse 1s ease-in-out infinite;
+}
+
+/* Specific button colors without borders */
+.btn-primary,
+.btn-warning,
+.btn-secondary {
+    color: white !important;
+}
+
+.btn:hover {
+    background: rgba(255, 255, 255, 0.1) !important;
+    transform: scale(1.05);
 }
 
 /* Status and Package Sections */
@@ -157,32 +208,18 @@ body {
 
 /* Progress Bars */
 .progress {
-    border-radius: 2px;
+    border-radius: 10px;
     overflow: hidden;
     background-color: rgba(255, 255, 255, 0.2);
     border: none;
     height: 4px;
-}
-
-.progress-bar {
-    transition: width 0.8s ease-in-out;
-    border-radius: 2px;
-}
-
-.progress-bar {
-    transition: width 0.3s ease;
-    border-radius: 2px;
-}
-
-/* Progress Bars */
-.progress {
-    border-radius: 10px;
-    overflow: hidden;
     box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .progress-bar {
     transition: width 0.3s ease;
+    border-radius: 10px;
+    background-color: white !important;
 }
 
 /* Cards */
@@ -204,13 +241,19 @@ body {
 /* Buttons */
 .btn {
     border-radius: 10px;
-    font-weight: 500;
+    font-weight: 300;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     transition: all 0.2s ease;
-}
-
-.btn-lg {
+    border: none;
+    background: transparent;
+    box-shadow: none;
+    cursor: pointer;
     padding: 0.75rem 1.5rem;
     font-size: 1.1rem;
+    min-height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 /* Form Controls */
@@ -263,6 +306,16 @@ body {
     .btn-group .btn {
         margin: 2px 0;
         border-radius: 10px;
+        font-weight: 300;
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+        border: none;
+        background: transparent;
+        box-shadow: none;
+        cursor: pointer;
+        min-height: 48px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
     
     .top-right-icons {
@@ -274,6 +327,32 @@ body {
         height: 35px;
         font-size: 1rem;
     }
+    
+    .tap-circles {
+        gap: 0.5rem;
+    }
+    
+    .circle {
+        width: 16px;
+        height: 16px;
+    }
+    
+    .templates-gallery {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+    
+    .template-card {
+        padding: 1.5rem;
+    }
+    
+    .template-icon {
+        font-size: 2.5rem;
+    }
+    
+    .home-container {
+        padding: 1rem;
+    }
 }
 
 /* Animation Classes */
@@ -284,6 +363,119 @@ body {
 @keyframes fadeIn {
     from { opacity: 0; transform: translateY(20px); }
     to { opacity: 1; transform: translateY(0); }
+}
+
+/* Home Page Styles */
+.home-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+.welcome-section {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.welcome-section h1 {
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    font-weight: 300;
+}
+
+.templates-gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 2rem;
+    margin-bottom: 3rem;
+}
+
+.template-card {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 2rem;
+    text-decoration: none;
+    color: white;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    cursor: pointer;
+}
+
+.template-card:hover {
+    transform: translateY(-5px);
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.4);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.template-preview {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    padding: 2rem;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 15px;
+}
+
+.template-icon {
+    font-size: 3rem;
+    color: white;
+    margin-bottom: 1rem;
+}
+
+.template-info h3 {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+    font-weight: 300;
+}
+
+.template-info p {
+    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: 1rem;
+    line-height: 1.6;
+}
+
+.template-features {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.feature-tag {
+    background: rgba(255, 255, 255, 0.2);
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.coming-soon {
+    text-align: center;
+    padding: 3rem;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Template Preview Variations */
+.study-preview {
+    background: linear-gradient(135deg, rgba(52, 152, 219, 0.2), rgba(155, 89, 182, 0.2));
+}
+
+.work-preview {
+    background: linear-gradient(135deg, rgba(46, 204, 113, 0.2), rgba(52, 152, 219, 0.2));
+}
+
+.creative-preview {
+    background: linear-gradient(135deg, rgba(155, 89, 182, 0.2), rgba(231, 76, 60, 0.2));
+}
+
+.meditation-preview {
+    background: linear-gradient(135deg, rgba(52, 73, 94, 0.2), rgba(44, 62, 80, 0.2));
+}
+
+.exercise-preview {
+    background: linear-gradient(135deg, rgba(230, 126, 34, 0.2), rgba(231, 76, 60, 0.2));
 }
 
 .pulse {

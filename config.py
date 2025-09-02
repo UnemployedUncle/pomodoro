@@ -37,19 +37,14 @@ class Config:
     }
     
     @staticmethod
-    def get_duration_minutes(state):
-        """Get duration in minutes for a given timer state"""
-        durations = {
-            Config.TIMER_STATES['focus']: Config.FOCUS_DURATION,
-            Config.TIMER_STATES['short_break']: Config.SHORT_BREAK_DURATION,
-            Config.TIMER_STATES['long_break']: Config.LONG_BREAK_DURATION
-        }
-        return durations.get(state, 0)
-    
-    @staticmethod
     def get_duration_seconds(state):
         """Get duration in seconds for a given timer state"""
-        return Config.get_duration_minutes(state) * 60
+        durations = {
+            Config.TIMER_STATES['focus']: Config.FOCUS_DURATION * 60,
+            Config.TIMER_STATES['short_break']: Config.SHORT_BREAK_DURATION * 60,
+            Config.TIMER_STATES['long_break']: Config.LONG_BREAK_DURATION * 60
+        }
+        return durations.get(state, 0)
     
     @staticmethod
     def format_time(seconds):

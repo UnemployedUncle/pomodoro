@@ -2,7 +2,8 @@
 class PomodoroTimer {
     constructor() {
         this.updateInterval = null;
-        this.lockdownEnabled = false;
+        this.tapCount = 0;
+        this.tapTimeout = null;
         this.initializeElements();
         this.bindEvents();
         this.updateTimer();
@@ -10,19 +11,72 @@ class PomodoroTimer {
 
     initializeElements() {
         this.timerDisplay = document.getElementById('timerDisplay');
-        this.sessionType = document.getElementById('sessionType');
         this.startBtn = document.getElementById('startBtn');
-        this.pauseBtn = document.getElementById('pauseBtn');
         this.resetBtn = document.getElementById('resetBtn');
         this.packageReady = document.getElementById('packageReady');
         this.cycleProgress = document.getElementById('cycleProgress');
         this.sessionProgress = document.getElementById('sessionProgress');
+        this.tapCircles = document.getElementById('tapCircles');
+        this.circle1 = document.getElementById('circle1');
+        this.circle2 = document.getElementById('circle2');
+        this.circle3 = document.getElementById('circle3');
     }
 
     bindEvents() {
         this.startBtn.addEventListener('click', () => this.startTimer());
-        this.pauseBtn.addEventListener('click', () => this.pauseTimer());
         this.resetBtn.addEventListener('click', () => this.resetTimer());
+        
+        // Add tap to pause functionality
+        document.addEventListener('click', (e) => this.handleTap(e));
+    }
+
+    handleTap(event) {
+        // Don't count taps on buttons or other interactive elements
+        if (event.target.closest('button') || event.target.closest('a') || event.target.closest('.tap-circles')) {
+            return;
+        }
+
+        // Only count taps when timer is running
+        if (this.updateInterval) {
+            this.tapCount++;
+            this.updateTapCircles();
+            
+            // Clear existing timeout
+            if (this.tapTimeout) {
+                clearTimeout(this.tapTimeout);
+            }
+            
+            // Set timeout to reset tap count
+            this.tapTimeout = setTimeout(() => {
+                this.resetTapCount();
+            }, 2000); // 2 seconds to complete 3 taps
+            
+            // Check if 3 taps completed
+            if (this.tapCount >= 3) {
+                this.pauseTimer();
+            }
+        }
+    }
+
+    updateTapCircles() {
+        this.tapCircles.style.display = 'flex';
+        
+        if (this.tapCount >= 1) this.circle1.classList.add('filled');
+        if (this.tapCount >= 2) this.circle2.classList.add('filled');
+        if (this.tapCount >= 3) this.circle3.classList.add('filled');
+    }
+
+    resetTapCount() {
+        this.tapCount = 0;
+        this.circle1.classList.remove('filled');
+        this.circle2.classList.remove('filled');
+        this.circle3.classList.remove('filled');
+        this.tapCircles.style.display = 'none';
+        
+        if (this.tapTimeout) {
+            clearTimeout(this.tapTimeout);
+            this.tapTimeout = null;
+        }
     }
 
     async startTimer() {
@@ -31,9 +85,9 @@ class PomodoroTimer {
             const data = await response.json();
             this.updateUI(data);
             this.startUpdateInterval();
+            this.resetTapCount();
         } catch (error) {
             console.error('Error starting timer:', error);
-            this.showStatus('Error starting timer', 'error');
         }
     }
 
@@ -43,9 +97,9 @@ class PomodoroTimer {
             const data = await response.json();
             this.updateUI(data);
             this.stopUpdateInterval();
+            this.resetTapCount();
         } catch (error) {
             console.error('Error pausing timer:', error);
-            this.showStatus('Error pausing timer', 'error');
         }
     }
 
@@ -55,16 +109,16 @@ class PomodoroTimer {
             const data = await response.json();
             this.updateUI(data);
             this.stopUpdateInterval();
+            this.resetTapCount();
         } catch (error) {
             console.error('Error resetting timer:', error);
-            this.showStatus('Error resetting timer', 'error');
         }
     }
 
     startUpdateInterval() {
         this.updateInterval = setInterval(() => {
             this.updateTimer();
-        }, 200); // Update every 200ms for smoother progress
+        }, 200);
     }
 
     stopUpdateInterval() {
@@ -80,22 +134,12 @@ class PomodoroTimer {
             const data = await response.json();
             this.updateUI(data);
             
-            // Check if package is ready
             if (data.package_ready) {
-                this.showPackageReady();
+                this.packageReady.style.display = 'block';
+                this.packageReady.classList.add('pulse');
             }
         } catch (error) {
             console.error('Error updating timer:', error);
-        }
-    }
-
-    async updateProgress() {
-        try {
-            const response = await fetch('/api/session-progress');
-            const data = await response.json();
-            this.updateProgressBars(data);
-        } catch (error) {
-            console.error('Error updating progress:', error);
         }
     }
 
@@ -103,69 +147,21 @@ class PomodoroTimer {
         // Update timer display
         this.timerDisplay.textContent = data.remaining_time;
         
-        // Update session type
-        this.sessionType.textContent = this.getSessionTypeText(data.current_state);
-        this.sessionType.className = 'text-white mb-0'; // Always keep white color
-        
         // Update button states
-        this.updateButtonStates(data.session_status);
-        
-        // Update progress using server data with smoother calculations
-        const sessionProgress = data.session_progress || 0;
-        const cycleProgress = (data.completed_sessions / data.total_sessions) * 100;
-        
-        this.updateProgressBars({
-            session_progress: sessionProgress,
-            cycle_progress: cycleProgress
-        });
-    }
-
-    updateButtonStates(sessionStatus) {
-        if (sessionStatus === 'running') {
+        if (data.session_status === 'running') {
             this.startBtn.style.display = 'none';
-            this.pauseBtn.style.display = 'inline-block';
+            this.resetBtn.style.display = 'none';
         } else {
             this.startBtn.style.display = 'inline-block';
-            this.pauseBtn.style.display = 'none';
+            this.resetBtn.style.display = 'inline-block';
         }
-    }
-
-    updateProgressBars(data) {
-        // Smooth progress bar updates with gradual transitions
+        
+        // Update progress bars
         const sessionProgress = Math.min(100, Math.max(0, data.session_progress || 0));
-        const cycleProgress = Math.min(100, Math.max(0, data.cycle_progress || 0));
+        const cycleProgress = Math.min(100, Math.max(0, (data.completed_sessions / data.total_sessions) * 100));
         
         this.sessionProgress.style.width = `${sessionProgress}%`;
         this.cycleProgress.style.width = `${cycleProgress}%`;
-    }
-
-    getSessionTypeText(state) {
-        const sessionTypes = {
-            'focus': 'Timer',
-            'short_break': 'Break',
-            'long_break': 'Long Break',
-            'completed': 'Complete!'
-        };
-        return sessionTypes[state] || 'Timer';
-    }
-
-    getSessionTypeClass(state) {
-        const classes = {
-            'focus': 'text-danger',
-            'short_break': 'text-success',
-            'long_break': 'text-info',
-            'completed': 'text-warning'
-        };
-        return classes[state] || 'text-muted';
-    }
-
-    showPackageReady() {
-        this.packageReady.style.display = 'block';
-        this.packageReady.classList.add('pulse');
-    }
-
-    isTimerRunning() {
-        return this.pauseBtn.style.display === 'inline-block';
     }
 }
 
@@ -173,19 +169,6 @@ class PomodoroTimer {
 document.addEventListener('DOMContentLoaded', () => {
     new PomodoroTimer();
 });
-
-// Add some utility functions
-function formatTime(seconds) {
-    const minutes = Math.floor(seconds / 60);
-    const remainingSeconds = seconds % 60;
-    return `${minutes.toString().padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`;
-}
-
-function showNotification(title, options = {}) {
-    if ('Notification' in window && Notification.permission === 'granted') {
-        new Notification(title, options);
-    }
-}
 
 // Request notification permission
 if ('Notification' in window) {

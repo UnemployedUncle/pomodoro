@@ -31,6 +31,11 @@ class PreferencesForm(FlaskForm):
     submit = SubmitField('Save Preferences')
 
 @app.route('/')
+def home():
+    """Home page with template gallery"""
+    return render_template('home.html')
+
+@app.route('/timer')
 def index():
     """Main timer interface"""
     timer_status = timer.get_status()
@@ -93,13 +98,11 @@ def reset_timer():
 def timer_status():
     """API endpoint for timer status updates"""
     status = timer.get_status()
-    
-    # Add session progress to the response
     status['session_progress'] = timer.get_session_progress()
     
     # Check if cycle is complete and generate package
     if status['is_complete'] and not reward_manager.get_current_package().get('completed_at'):
-        package = reward_manager.generate_package()
+        reward_manager.generate_package()
         status['package_ready'] = True
     else:
         status['package_ready'] = False
@@ -123,14 +126,6 @@ def collect_rewards():
     timer.reset()  # Reset timer for new cycle
     flash('Rewards collected! Start a new Pomodoro cycle.', 'success')
     return redirect(url_for('index'))
-
-@app.route('/api/session-progress')
-def session_progress():
-    """Get session progress data"""
-    return jsonify({
-        'session_progress': timer.get_session_progress(),
-        'cycle_progress': timer.get_cycle_progress()
-    })
 
 @app.errorhandler(404)
 def not_found_error(error):
