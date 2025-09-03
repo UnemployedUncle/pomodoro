@@ -4,7 +4,6 @@ class PomodoroTimer {
         this.updateInterval = null;
         this.tapCount = 0;
         this.tapTimeout = null;
-        this.circlesVisible = false;
         this.initializeElements();
         this.bindEvents();
         this.updateTimer();
@@ -13,6 +12,7 @@ class PomodoroTimer {
     initializeElements() {
         this.timerDisplay = document.getElementById('timerDisplay');
         this.startBtn = document.getElementById('startBtn');
+        this.resetBtn = document.getElementById('resetBtn');
         this.packageReady = document.getElementById('packageReady');
         this.cycleProgress = document.getElementById('cycleProgress');
         this.sessionProgress = document.getElementById('sessionProgress');
@@ -23,11 +23,8 @@ class PomodoroTimer {
     }
 
     bindEvents() {
-        if (this.startBtn) {
-            this.startBtn.addEventListener('click', () => {
-                this.startTimer();
-            });
-        }
+        this.startBtn.addEventListener('click', () => this.startTimer());
+        this.resetBtn.addEventListener('click', () => this.resetTimer());
         
         // Add tap to pause functionality
         document.addEventListener('click', (e) => this.handleTap(e));
@@ -42,13 +39,6 @@ class PomodoroTimer {
         // Only count taps when timer is running
         if (this.updateInterval) {
             this.tapCount++;
-            
-            // First tap: show the circles
-            if (this.tapCount === 1) {
-                this.showTapCircles();
-            }
-            
-            // Update circle visibility based on tap count
             this.updateTapCircles();
             
             // Clear existing timeout
@@ -59,38 +49,28 @@ class PomodoroTimer {
             // Set timeout to reset tap count
             this.tapTimeout = setTimeout(() => {
                 this.resetTapCount();
-            }, 2000); // 2 seconds to complete 3 taps after circles appear
+            }, 2000); // 2 seconds to complete 3 taps
             
-            // Check if 4 taps completed (1 to show + 3 to reset)
-            if (this.tapCount >= 4) {
-                this.resetToBeginning();
+            // Check if 3 taps completed
+            if (this.tapCount >= 3) {
+                this.pauseTimer();
             }
         }
     }
 
-    showTapCircles() {
-        this.circlesVisible = true;
-        this.tapCircles.style.display = 'flex';
-        this.circle1.style.display = 'block';
-        this.circle2.style.display = 'block';
-        this.circle3.style.display = 'block';
-    }
-
     updateTapCircles() {
-        if (!this.circlesVisible) return;
+        this.tapCircles.style.display = 'flex';
         
-        // Hide circles as they are tapped (after the first tap that shows them)
-        if (this.tapCount >= 2) this.circle1.style.display = 'none';
-        if (this.tapCount >= 3) this.circle2.style.display = 'none';
-        if (this.tapCount >= 4) this.circle3.style.display = 'none';
+        if (this.tapCount >= 1) this.circle1.classList.add('filled');
+        if (this.tapCount >= 2) this.circle2.classList.add('filled');
+        if (this.tapCount >= 3) this.circle3.classList.add('filled');
     }
 
     resetTapCount() {
         this.tapCount = 0;
-        this.circlesVisible = false;
-        this.circle1.style.display = 'block';
-        this.circle2.style.display = 'block';
-        this.circle3.style.display = 'block';
+        this.circle1.classList.remove('filled');
+        this.circle2.classList.remove('filled');
+        this.circle3.classList.remove('filled');
         this.tapCircles.style.display = 'none';
         
         if (this.tapTimeout) {
@@ -111,7 +91,19 @@ class PomodoroTimer {
         }
     }
 
-    async resetToBeginning() {
+    async pauseTimer() {
+        try {
+            const response = await fetch('/pause');
+            const data = await response.json();
+            this.updateUI(data);
+            this.stopUpdateInterval();
+            this.resetTapCount();
+        } catch (error) {
+            console.error('Error pausing timer:', error);
+        }
+    }
+
+    async resetTimer() {
         try {
             const response = await fetch('/reset');
             const data = await response.json();
@@ -142,16 +134,6 @@ class PomodoroTimer {
             const data = await response.json();
             this.updateUI(data);
             
-            // Check if session completed naturally
-            if (data.session_status === 'completed' || data.current_state === 'completed') {
-                this.stopUpdateInterval();
-                this.resetTapCount();
-                // Auto-reset to beginning when session completes
-                setTimeout(() => {
-                    this.resetToBeginning();
-                }, 1000);
-            }
-            
             if (data.package_ready) {
                 this.packageReady.style.display = 'block';
                 this.packageReady.classList.add('pulse');
@@ -165,11 +147,13 @@ class PomodoroTimer {
         // Update timer display
         this.timerDisplay.textContent = data.remaining_time;
         
-        // Update button states - always show start button when not running
+        // Update button states
         if (data.session_status === 'running') {
             this.startBtn.style.display = 'none';
+            this.resetBtn.style.display = 'none';
         } else {
             this.startBtn.style.display = 'inline-block';
+            this.resetBtn.style.display = 'inline-block';
         }
         
         // Update progress bars
@@ -189,4 +173,4 @@ document.addEventListener('DOMContentLoaded', () => {
 // Request notification permission
 if ('Notification' in window) {
     Notification.requestPermission();
-}
+} 

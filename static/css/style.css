@@ -134,25 +134,26 @@ body {
     height: 20px;
     border-radius: 50%;
     border: 2px solid white;
-    background: transparent;
+    background: white;
+    transition: all 0.3s ease;
+    opacity: 1;
+}
+
+.circle.disappearing {
+    opacity: 0;
+    transform: scale(0.5);
     transition: all 0.3s ease;
 }
 
-.circle.filled {
-    background: white;
-    transform: scale(1.2);
-    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
-}
-
-/* Add subtle pulse animation for filled circles */
+/* Add subtle pulse animation for visible circles */
 @keyframes circlePulse {
-    0% { transform: scale(1.2); }
-    50% { transform: scale(1.3); }
-    100% { transform: scale(1.2); }
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
 }
 
-.circle.filled {
-    animation: circlePulse 1s ease-in-out infinite;
+.circle {
+    animation: circlePulse 2s ease-in-out infinite;
 }
 
 /* Specific button colors without borders */

@@ -15,9 +15,6 @@
             <button type="button" class="btn btn-primary btn-lg" id="startBtn">
                 <i class="fas fa-play me-2"></i>Start
             </button>
-            <button type="button" class="btn btn-secondary btn-lg" id="resetBtn">
-                <i class="fas fa-redo me-2"></i>Reset
-            </button>
         </div>
     </div>
 
@@ -50,8 +47,8 @@
             </div>
         </div>
         
-        <!-- Current Session Progress Bar -->
-        <div class="current-session-progress-container">
+        <!-- Single Session Progress Bar -->
+        <div class="session-progress-container">
             <div class="progress" style="height: 4px;">
                 <div class="progress-bar" id="sessionProgress" role="progressbar" style="width: 0%"></div>
             </div>
@@ -61,4 +58,4 @@
 
 {% block extra_js %}
 <script src="{{ url_for('static', filename='js/timer.js') }}"></script>
-{% endblock %} 
+{% endblock %}
