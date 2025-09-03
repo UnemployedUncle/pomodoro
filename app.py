@@ -1,9 +1,7 @@
-from flask import Flask, render_template, request, jsonify, redirect, url_for, flash
+from flask import Flask, render_template, jsonify, redirect, url_for, flash
 from flask_wtf import FlaskForm
-from wtforms import StringField, TextAreaField, SubmitField
+from wtforms import TextAreaField, SubmitField
 from wtforms.validators import DataRequired
-import json
-import os
 
 from config import Config
 from models.timer import PomodoroTimer
@@ -82,12 +80,6 @@ def start_timer():
     timer.start()
     return jsonify(timer.get_status())
 
-@app.route('/pause')
-def pause_timer():
-    """Pause the Pomodoro timer"""
-    timer.pause()
-    return jsonify(timer.get_status())
-
 @app.route('/reset')
 def reset_timer():
     """Reset the Pomodoro timer"""
@@ -136,4 +128,4 @@ def internal_error(error):
     return render_template('500.html'), 500
 
 if __name__ == '__main__':
-    app.run(debug=Config.DEBUG, host='0.0.0.0', port=5001) 
+    app.run(debug=Config.DEBUG, host='0.0.0.0', port=5001)

@@ -32,7 +32,6 @@ class Config:
     SESSION_STATUS = {
         'idle': 'idle',
         'running': 'running',
-        'paused': 'paused',
         'completed': 'completed'
     }
     
@@ -58,4 +57,4 @@ class Config:
         """Ensure all required directories exist"""
         directories = [Config.DATA_DIR, Config.PHOTOS_DIR, Config.QUOTES_DIR]
         for directory in directories:
-            os.makedirs(directory, exist_ok=True) 
+            os.makedirs(directory, exist_ok=True)
