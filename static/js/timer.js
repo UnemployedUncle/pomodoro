@@ -2,9 +2,7 @@
 class PomodoroTimer {
     constructor() {
         this.updateInterval = null;
-        this.tapCount = 0;
-        this.tapTimeout = null;
-        this.circlesVisible = false;
+        this.focusCirclesRemaining = 3;
         this.initializeElements();
         this.bindEvents();
         this.updateTimer();
@@ -29,74 +27,51 @@ class PomodoroTimer {
             });
         }
         
-        // Add tap to pause functionality
-        document.addEventListener('click', (e) => this.handleTap(e));
+        // Add tap to focus functionality
+        document.addEventListener('click', (e) => this.handleFocusTap(e));
     }
 
-    handleTap(event) {
+    handleFocusTap(event) {
         // Don't count taps on buttons or other interactive elements
-        if (event.target.closest('button') || event.target.closest('a') || event.target.closest('.tap-circles')) {
+        if (event.target.closest('button') || event.target.closest('a') || event.target.closest('.focus-circles')) {
             return;
         }
 
-        // Only count taps when timer is running
-        if (this.updateInterval) {
-            this.tapCount++;
-            
-            // First tap: show the circles
-            if (this.tapCount === 1) {
-                this.showTapCircles();
-            }
-            
-            // Update circle visibility based on tap count
-            this.updateTapCircles();
-            
-            // Clear existing timeout
-            if (this.tapTimeout) {
-                clearTimeout(this.tapTimeout);
-            }
-            
-            // Set timeout to reset tap count
-            this.tapTimeout = setTimeout(() => {
-                this.resetTapCount();
-            }, 2000); // 2 seconds to complete 3 taps after circles appear
-            
-            // Check if 4 taps completed (1 to show + 3 to reset)
-            if (this.tapCount >= 4) {
-                this.resetToBeginning();
-            }
+        // Only handle focus taps when timer is running
+        if (this.updateInterval && this.focusCirclesRemaining > 0) {
+            this.removeFocusCircle();
         }
     }
 
-    showTapCircles() {
-        this.circlesVisible = true;
+    showFocusCircles() {
         this.tapCircles.style.display = 'flex';
         this.circle1.style.display = 'block';
         this.circle2.style.display = 'block';
         this.circle3.style.display = 'block';
+        this.focusCirclesRemaining = 3;
     }
 
-    updateTapCircles() {
-        if (!this.circlesVisible) return;
+    removeFocusCircle() {
+        this.focusCirclesRemaining--;
         
-        // Hide circles as they are tapped (after the first tap that shows them)
-        if (this.tapCount >= 2) this.circle1.style.display = 'none';
-        if (this.tapCount >= 3) this.circle2.style.display = 'none';
-        if (this.tapCount >= 4) this.circle3.style.display = 'none';
+        // Hide circles one by one
+        if (this.focusCirclesRemaining === 2) {
+            this.circle1.style.display = 'none';
+        } else if (this.focusCirclesRemaining === 1) {
+            this.circle2.style.display = 'none';
+        } else if (this.focusCirclesRemaining === 0) {
+            this.circle3.style.display = 'none';
+            // All focus circles removed, reset to beginning
+            this.resetToBeginning();
+        }
     }
 
-    resetTapCount() {
-        this.tapCount = 0;
-        this.circlesVisible = false;
+    hideFocusCircles() {
+        this.tapCircles.style.display = 'none';
         this.circle1.style.display = 'block';
         this.circle2.style.display = 'block';
         this.circle3.style.display = 'block';
-        this.tapCircles.style.display = 'none';
-        
-        if (this.tapTimeout) {
-            clearTimeout(this.tapTimeout);
-            this.tapTimeout = null;
-        }
+        this.focusCirclesRemaining = 3;
     }
 
     async startTimer() {
@@ -105,7 +80,7 @@ class PomodoroTimer {
             const data = await response.json();
             this.updateUI(data);
             this.startUpdateInterval();
-            this.resetTapCount();
+            this.showFocusCircles();
         } catch (error) {
             console.error('Error starting timer:', error);
         }
@@ -117,7 +92,7 @@ class PomodoroTimer {
             const data = await response.json();
             this.updateUI(data);
             this.stopUpdateInterval();
-            this.resetTapCount();
+            this.hideFocusCircles();
         } catch (error) {
             console.error('Error resetting timer:', error);
         }
@@ -145,7 +120,7 @@ class PomodoroTimer {
             // Check if session completed naturally
             if (data.session_status === 'completed' || data.current_state === 'completed') {
                 this.stopUpdateInterval();
-                this.resetTapCount();
+                this.hideFocusCircles();
                 // Auto-reset to beginning when session completes
                 setTimeout(() => {
                     this.resetToBeginning();

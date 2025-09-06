@@ -120,12 +120,12 @@ body {
     box-shadow: none;
 }
 
-/* Tap to Pause Circles */
-.tap-circles {
+/* Focus Circles */
+.focus-circles {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 1rem;
+    gap: 2rem;
     margin-bottom: 2rem;
 }
 
@@ -329,8 +329,8 @@ body {
         font-size: 1rem;
     }
     
-    .tap-circles {
-        gap: 0.5rem;
+    .focus-circles {
+        gap: 1rem;
     }
     
     .circle {
