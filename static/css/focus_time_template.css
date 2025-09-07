@@ -1,0 +1,293 @@
+/* Focus Time Template - 4 Variations */
+
+/* Template Container */
+.focus-time-template {
+    position: relative;
+    width: 1728px;
+    height: 1117px;
+    background: #FFFFFF;
+    font-family: 'Helvetica', Arial, sans-serif;
+    overflow: hidden;
+}
+
+/* Template 1: Cafe Theme */
+.focus-time-template.template-1 {
+    background: url('tmp/minku-kang-EB4aBDOMyT4-unsplash.jpg') center/cover no-repeat;
+}
+
+/* Template 2: Coffee Shop Theme */
+.focus-time-template.template-2 {
+    background: url('tmp/khamkeo-ciyy63hP7HA-unsplash.jpg') center/cover no-repeat;
+}
+
+/* Template 3: Modern Cafe Theme */
+.focus-time-template.template-3 {
+    background: url('tmp/99-films-yr9l_xQPDL0-unsplash.jpg') center/cover no-repeat;
+}
+
+/* Template 4: Cozy Cafe Theme */
+.focus-time-template.template-4 {
+    background: url('tmp/sabri-tuzcu-w8HTBRcsmNo-unsplash.jpg') center/cover no-repeat;
+}
+
+/* Title - Focus Time */
+.focus-time-title {
+    position: absolute;
+    width: 120px;
+    height: 21px;
+    left: 56px;
+    top: 41px;
+    font-family: 'Helvetica';
+    font-style: normal;
+    font-weight: 300;
+    font-size: 18px;
+    line-height: 21px;
+    color: #FFFFFF;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+/* Timer Display */
+.focus-time-timer {
+    position: absolute;
+    width: 476px;
+    height: 204px;
+    left: 103px;
+    top: 372px;
+    font-family: 'Helvetica';
+    font-style: normal;
+    font-weight: 300;
+    font-size: 158px;
+    line-height: 182px;
+    display: flex;
+    align-items: center;
+    color: #FFFFFF;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+}
+
+/* Quote Display */
+.focus-time-quote {
+    position: absolute;
+    width: 600px;
+    height: 74px;
+    left: 108px;
+    top: 561px;
+    font-family: 'Helvetica';
+    font-style: normal;
+    font-weight: 300;
+    font-size: 32px;
+    line-height: 37px;
+    color: #FFFFFF;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+}
+
+/* Speaker Display */
+.focus-time-speaker {
+    position: absolute;
+    width: 200px;
+    height: 23px;
+    left: 108px;
+    top: 663px;
+    font-family: 'Helvetica';
+    font-style: normal;
+    font-weight: 300;
+    font-size: 20px;
+    line-height: 23px;
+    color: #FFFFFF;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+}
+
+/* Focus Circles Container */
+.focus-circles-container {
+    position: absolute;
+    width: 106px;
+    height: 20.71px;
+    left: 812px;
+    top: 959px;
+}
+
+/* Focus Circle 1 */
+.focus-circle-1 {
+    position: absolute;
+    width: 20.71px;
+    height: 20.71px;
+    left: 0px;
+    top: 0px;
+    background: #D9D9D9;
+    border-radius: 50%;
+    border: 2px solid rgba(255, 255, 255, 0.8);
+}
+
+/* Focus Circle 2 */
+.focus-circle-2 {
+    position: absolute;
+    width: 20.71px;
+    height: 20.71px;
+    left: 42.64px;
+    top: 0px;
+    background: #D9D9D9;
+    border-radius: 50%;
+    border: 2px solid rgba(255, 255, 255, 0.8);
+}
+
+/* Focus Circle 3 */
+.focus-circle-3 {
+    position: absolute;
+    width: 20.71px;
+    height: 20.71px;
+    left: 85.29px;
+    top: 0px;
+    background: #D9D9D9;
+    border-radius: 50%;
+    border: 2px solid rgba(255, 255, 255, 0.8);
+}
+
+/* Progress Bar - Main */
+.focus-time-progress-bar {
+    position: absolute;
+    width: 1693px;
+    height: 4px;
+    left: 18px;
+    top: 1099px;
+    background: #D9D9D9;
+    border-radius: 2px;
+}
+
+/* Session Bar - 4 Sessions */
+.focus-time-session-bar {
+    position: absolute;
+    width: 423px;
+    height: 4px;
+    left: 18px;
+    top: 1093px;
+    background: #D9D9D9;
+    border-radius: 2px;
+}
+
+/* Top Right Icons Container */
+.top-right-icons-container {
+    position: absolute;
+    width: 80px;
+    height: 24px;
+    right: 48px;
+    top: 38px;
+    display: flex;
+    gap: 16px;
+    align-items: center;
+}
+
+/* Schedule Icon */
+.schedule-icon {
+    width: 24px;
+    height: 24px;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #333;
+    font-size: 14px;
+    font-weight: bold;
+    text-shadow: none;
+}
+
+/* Settings Icon */
+.settings-icon {
+    width: 24px;
+    height: 24px;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #333;
+    font-size: 14px;
+    font-weight: bold;
+    text-shadow: none;
+}
+
+/* Template-specific quote variations */
+.template-1 .focus-time-quote::before {
+    content: "It is not that we have a short time to live, but that we waste a lot of it.";
+}
+
+.template-1 .focus-time-speaker::before {
+    content: "Seneca";
+}
+
+.template-2 .focus-time-quote::before {
+    content: "Time is the most valuable thing that a man can spend.";
+}
+
+.template-2 .focus-time-speaker::before {
+    content: "Theophrastus";
+}
+
+.template-3 .focus-time-quote::before {
+    content: "Dost thou love life? Then do not squander time, for that's the stuff life is made of.";
+}
+
+.template-3 .focus-time-speaker::before {
+    content: "Benjamin Franklin";
+}
+
+.template-4 .focus-time-quote::before {
+    content: "Time is what we want most, but what we use worst.";
+}
+
+.template-4 .focus-time-speaker::before {
+    content: "William Penn";
+}
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 1728px) {
+    .focus-time-template {
+        transform: scale(0.8);
+        transform-origin: top left;
+    }
+}
+
+@media (max-width: 1400px) {
+    .focus-time-template {
+        transform: scale(0.6);
+        transform-origin: top left;
+    }
+}
+
+@media (max-width: 1100px) {
+    .focus-time-template {
+        transform: scale(0.4);
+        transform-origin: top left;
+    }
+}
+
+/* Animation for focus circles */
+.focus-circle-1.active,
+.focus-circle-2.active,
+.focus-circle-3.active {
+    background: #FFFFFF;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
+
+/* Progress bar animation */
+.focus-time-progress-bar .progress-fill {
+    height: 100%;
+    background: #FFFFFF;
+    border-radius: 2px;
+    transition: width 0.3s ease;
+    box-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+}
+
+.focus-time-session-bar .session-fill {
+    height: 100%;
+    background: #FFFFFF;
+    border-radius: 2px;
+    transition: width 0.3s ease;
+    box-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+}
