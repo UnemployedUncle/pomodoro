@@ -30,6 +30,8 @@ class RewardManager:
         return {
             'photo_keywords': [],
             'quote_keywords': [],
+            'custom_quotes': [],
+            'earned_templates': [1, 2, 3, 4],  # All templates available by default for demo
             'completed_packages': [],
             'current_package': {
                 'photos': [],
@@ -160,6 +162,46 @@ class RewardManager:
             'completed_at': None
         }
         self.save_user_data()
+    
+    def add_custom_quote(self, quote_text):
+        """Add a custom quote from the user"""
+        if 'custom_quotes' not in self.user_data:
+            self.user_data['custom_quotes'] = []
+        
+        quote_id = len(self.user_data['custom_quotes']) + 1
+        custom_quote = {
+            'id': quote_id,
+            'quote': quote_text,
+            'speaker': 'You',
+            'created_at': datetime.now().isoformat()
+        }
+        
+        self.user_data['custom_quotes'].append(custom_quote)
+        self.save_user_data()
+        return custom_quote
+    
+    def get_custom_quotes(self):
+        """Get all custom quotes"""
+        return self.user_data.get('custom_quotes', [])
+    
+    def earn_template(self, template_id):
+        """Earn a template after completing 4 sessions"""
+        if 'earned_templates' not in self.user_data:
+            self.user_data['earned_templates'] = []
+        
+        if template_id not in self.user_data['earned_templates']:
+            self.user_data['earned_templates'].append(template_id)
+            self.save_user_data()
+            return True
+        return False
+    
+    def get_earned_templates(self):
+        """Get list of earned templates"""
+        return self.user_data.get('earned_templates', [])
+    
+    def is_template_earned(self, template_id):
+        """Check if a template is earned"""
+        return template_id in self.user_data.get('earned_templates', [])
     
     def save_photo_locally(self, photo_data):
         """Save photo to local storage"""

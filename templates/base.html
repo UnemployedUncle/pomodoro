@@ -12,31 +12,26 @@
     
     <!-- Custom CSS -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/navigation.css') }}">
     
     {% block extra_css %}{% endblock %}
 </head>
 <body>
-    <!-- Header -->
-    <header class="app-header">
-        <div class="container">
-            <div class="d-flex justify-content-between align-items-center">
-                <!-- App Name -->
-                <h1 class="app-title">
-                    <a href="{{ url_for('home') }}" class="app-title-link">Focus Time</a>
-                </h1>
-                
-                <!-- Top Right Icons -->
-                <div class="top-right-icons">
-                    <a href="{{ url_for('index') }}" class="top-icon" title="Schedule">
-                        <i class="fas fa-calendar"></i>
-                    </a>
-                    <a href="{{ url_for('setup') }}" class="top-icon" title="Setup Preferences">
-                        <i class="fas fa-cog"></i>
-                    </a>
-                </div>
-            </div>
+    <!-- Navigation -->
+    <nav class="navigation-container">
+        <!-- App Title -->
+        <a href="{{ url_for('home') }}" class="app-title">Focus Time</a>
+        
+        <!-- Top Right Icons -->
+        <div class="top-right-icons">
+            <a href="{{ url_for('index') }}" class="top-icon" title="Timer">
+                <i class="fas fa-clock"></i>
+            </a>
+            <a href="{{ url_for('setup') }}" class="top-icon" title="Settings">
+                <i class="fas fa-cog"></i>
+            </a>
         </div>
-    </header>
+    </nav>
 
     <!-- Flash Messages -->
     {% with messages = get_flashed_messages(with_categories=true) %}
@@ -53,7 +48,7 @@
     {% endwith %}
 
     <!-- Main Content -->
-    <main class="main-content">
+    <main class="main-content" style="margin-top: 80px;">
         {% block content %}{% endblock %}
     </main>
 

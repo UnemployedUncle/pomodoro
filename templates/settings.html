@@ -1,0 +1,164 @@
+{% extends "base.html" %}
+
+{% block title %}Focus Time - Settings{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/settings.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="settings-container">
+    <!-- Settings Title -->
+    <div class="settings-title">Settings</div>
+    
+    <!-- Quotes Section -->
+    <div class="quotes-section">
+        <div class="section-title">Quotes</div>
+        
+        <!-- Quote Cards Grid -->
+        <div class="quote-cards-grid">
+            <!-- Existing Custom Quotes -->
+            {% for quote in custom_quotes %}
+            <div class="user-quote-card">
+                <div class="quote-content">
+                    <div class="quote-text">{{ quote.quote }}</div>
+                    <div class="quote-author">{{ quote.speaker }}</div>
+                </div>
+            </div>
+            {% endfor %}
+            
+            <!-- Add New Quote Card -->
+            <div class="user-quote-card add-new" onclick="showAddQuoteForm()">
+                <div class="quote-content">
+                    <div class="quote-text">+ Add New Quote</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Add Quote Form (Hidden by default) -->
+        <div class="add-quote-form" id="addQuoteForm" style="display: none;">
+            <h4 style="color: white; margin-bottom: 1rem;">Add Your Own Quote</h4>
+            <div class="form-group">
+                <label for="newQuote">Your Quote:</label>
+                <textarea id="newQuote" class="form-control" rows="3" placeholder="Enter your motivational quote here..."></textarea>
+            </div>
+            <div class="form-group">
+                <button type="button" class="btn btn-primary" onclick="addCustomQuote()">Add Quote</button>
+                <button type="button" class="btn btn-secondary" onclick="hideAddQuoteForm()">Cancel</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Rewards Section -->
+    <div class="rewards-section">
+        <div class="section-title">Rewards</div>
+        
+        <!-- Reward Templates Grid -->
+        <div class="reward-templates-grid">
+            <!-- Template 1 -->
+            <div class="reward-template-card {% if 1 in earned_templates %}earned{% else %}locked{% endif %}" data-template="1">
+                <div class="reward-status {% if 1 in earned_templates %}earned{% else %}locked{% endif %}">
+                    {% if 1 in earned_templates %}Earned{% else %}Locked{% endif %}
+                </div>
+                <div class="reward-template-preview">
+                    <div class="reward-template-icon">☕</div>
+                </div>
+                <div class="reward-template-info">
+                    <h3>Cafe Focus</h3>
+                    <p>Complete 4 focus sessions to unlock</p>
+                </div>
+            </div>
+            
+            <!-- Template 2 -->
+            <div class="reward-template-card {% if 2 in earned_templates %}earned{% else %}locked{% endif %}" data-template="2">
+                <div class="reward-status {% if 2 in earned_templates %}earned{% else %}locked{% endif %}">
+                    {% if 2 in earned_templates %}Earned{% else %}Locked{% endif %}
+                </div>
+                <div class="reward-template-preview">
+                    <div class="reward-template-icon">🏪</div>
+                </div>
+                <div class="reward-template-info">
+                    <h3>Coffee Shop</h3>
+                    <p>Complete 4 focus sessions to unlock</p>
+                </div>
+            </div>
+            
+            <!-- Template 3 -->
+            <div class="reward-template-card {% if 3 in earned_templates %}earned{% else %}locked{% endif %}" data-template="3">
+                <div class="reward-status {% if 3 in earned_templates %}earned{% else %}locked{% endif %}">
+                    {% if 3 in earned_templates %}Earned{% else %}Locked{% endif %}
+                </div>
+                <div class="reward-template-preview">
+                    <div class="reward-template-icon">🏢</div>
+                </div>
+                <div class="reward-template-info">
+                    <h3>Modern Cafe</h3>
+                    <p>Complete 4 focus sessions to unlock</p>
+                </div>
+            </div>
+            
+            <!-- Template 4 -->
+            <div class="reward-template-card {% if 4 in earned_templates %}earned{% else %}locked{% endif %}" data-template="4">
+                <div class="reward-status {% if 4 in earned_templates %}earned{% else %}locked{% endif %}">
+                    {% if 4 in earned_templates %}Earned{% else %}Locked{% endif %}
+                </div>
+                <div class="reward-template-preview">
+                    <div class="reward-template-icon">🏠</div>
+                </div>
+                <div class="reward-template-info">
+                    <h3>Cozy Cafe</h3>
+                    <p>Complete 4 focus sessions to unlock</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+function showAddQuoteForm() {
+    document.getElementById('addQuoteForm').style.display = 'block';
+}
+
+function hideAddQuoteForm() {
+    document.getElementById('addQuoteForm').style.display = 'none';
+    document.getElementById('newQuote').value = '';
+}
+
+async function addCustomQuote() {
+    const quoteText = document.getElementById('newQuote').value.trim();
+    
+    if (!quoteText) {
+        alert('Please enter a quote');
+        return;
+    }
+    
+    try {
+        const response = await fetch('/api/add-quote', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                quote: quoteText
+            })
+        });
+        
+        const data = await response.json();
+        
+        if (data.success) {
+            alert('Quote added successfully!');
+            hideAddQuoteForm();
+            // Reload page to show new quote
+            location.reload();
+        } else {
+            alert('Error: ' + data.message);
+        }
+    } catch (error) {
+        console.error('Error adding quote:', error);
+        alert('Error adding quote. Please try again.');
+    }
+}
+</script>
+{% endblock %}

@@ -45,11 +45,8 @@ class PomodoroTimer:
                 self.current_state = Config.TIMER_STATES['completed']
                 self.session_status = Config.SESSION_STATUS['completed']
             else:
-                # Move to short break or long break
-                if self.completed_sessions % 4 == 0:
-                    self.current_state = Config.TIMER_STATES['long_break']
-                else:
-                    self.current_state = Config.TIMER_STATES['short_break']
+                # Move to short break (long break only after all 4 sessions)
+                self.current_state = Config.TIMER_STATES['short_break']
         else:
             # Break is complete, move to next focus session
             self.current_state = Config.TIMER_STATES['focus']

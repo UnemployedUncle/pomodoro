@@ -1,0 +1,111 @@
+/* Navigation Bar Styles */
+
+/* General Navigation Container */
+.navigation-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 80px;
+    background: rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 2rem;
+}
+
+/* App Title - Focus Time */
+.app-title {
+    font-family: 'Helvetica', Arial, sans-serif;
+    font-style: normal;
+    font-weight: 300;
+    font-size: 24px;
+    line-height: 28px;
+    color: #FFFFFF;
+    text-decoration: none;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+    transition: all 0.2s ease;
+}
+
+.app-title:hover {
+    color: rgba(255, 255, 255, 0.8);
+    text-decoration: none;
+    transform: scale(1.05);
+}
+
+/* Top Right Icons Container */
+.top-right-icons {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+/* Individual Icons */
+.top-icon {
+    width: 40px;
+    height: 40px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(255, 255, 255, 0.9);
+    text-decoration: none;
+    transition: all 0.2s ease;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.top-icon:hover {
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    transform: scale(1.1);
+    text-decoration: none;
+    border-color: rgba(255, 255, 255, 0.4);
+}
+
+.top-icon i {
+    font-size: 16px;
+    transition: transform 0.2s ease;
+}
+
+.top-icon:hover i {
+    transform: scale(1.1);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .navigation-container {
+        padding: 0 1rem;
+        height: 60px;
+    }
+    
+    .app-title {
+        font-size: 20px;
+    }
+    
+    .top-icon {
+        width: 35px;
+        height: 35px;
+    }
+    
+    .top-icon i {
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 480px) {
+    .navigation-container {
+        padding: 0 0.5rem;
+    }
+    
+    .app-title {
+        font-size: 18px;
+    }
+    
+    .top-right-icons {
+        gap: 0.5rem;
+    }
+}

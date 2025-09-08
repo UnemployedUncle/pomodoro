@@ -1,130 +1,68 @@
 {% extends "base.html" %}
 
-{% block title %}Pomodoro Templates - Home{% endblock %}
+{% block title %}Focus Time - Home{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}">
+{% endblock %}
 
 {% block content %}
 <div class="home-container">
-    <!-- Welcome Section -->
-    <div class="welcome-section">
-        <h1 class="display-4 text-white mb-4">Choose Your Focus Template</h1>
-        <p class="text-white-50 lead">Select from our curated collection of productivity templates</p>
-    </div>
-
-    <!-- Templates Gallery -->
-    <div class="templates-gallery">
-        <!-- Timer Template -->
-        <a href="{{ url_for('index') }}" class="template-card">
+    <!-- Sub Home Title -->
+    <div class="sub-home-title">Focus Time</div>
+    
+    <!-- Home Title -->
+    <div class="home-title">Choose Your Focus Template</div>
+    
+    <!-- Template Grid -->
+    <div class="template-grid">
+        <!-- Template 1: Cafe -->
+        <a href="{{ url_for('timer_template', template_id=1) }}" class="template-card earned" data-template="1">
+            <div class="template-status earned">Available</div>
             <div class="template-preview">
-                <div class="template-icon">
-                    <i class="fas fa-clock"></i>
-                </div>
+                <div class="template-icon">☕</div>
             </div>
             <div class="template-info">
-                <h3>Pomodoro Timer</h3>
-                <p>Classic 25-minute focus sessions with breaks</p>
-                <div class="template-features">
-                    <span class="feature-tag">Timer</span>
-                    <span class="feature-tag">Progress</span>
-                    <span class="feature-tag">Rewards</span>
-                </div>
+                <h3>Cafe Focus</h3>
+                <p>Cozy cafe atmosphere for deep work</p>
             </div>
         </a>
-
-        <!-- Study Template -->
-        <div class="template-card">
-            <div class="template-preview study-preview">
-                <div class="template-icon">
-                    <i class="fas fa-graduation-cap"></i>
-                </div>
+        
+        <!-- Template 2: Coffee Shop -->
+        <a href="{{ url_for('timer_template', template_id=2) }}" class="template-card earned" data-template="2">
+            <div class="template-status earned">Available</div>
+            <div class="template-preview">
+                <div class="template-icon">🏪</div>
             </div>
             <div class="template-info">
-                <h3>Study Session</h3>
-                <p>Extended focus periods for deep learning</p>
-                <div class="template-features">
-                    <span class="feature-tag">Study</span>
-                    <span class="feature-tag">Long Focus</span>
-                    <span class="feature-tag">Notes</span>
-                </div>
+                <h3>Coffee Shop</h3>
+                <p>Modern coffee shop vibes</p>
             </div>
-        </div>
-
-        <!-- Work Template -->
-        <div class="template-card">
-            <div class="template-preview work-preview">
-                <div class="template-icon">
-                    <i class="fas fa-briefcase"></i>
-                </div>
+        </a>
+        
+        <!-- Template 3: Modern Cafe -->
+        <a href="{{ url_for('timer_template', template_id=3) }}" class="template-card earned" data-template="3">
+            <div class="template-status earned">Available</div>
+            <div class="template-preview">
+                <div class="template-icon">🏢</div>
             </div>
             <div class="template-info">
-                <h3>Work Sprint</h3>
-                <p>Intensive work sessions with task tracking</p>
-                <div class="template-features">
-                    <span class="feature-tag">Work</span>
-                    <span class="feature-tag">Tasks</span>
-                    <span class="feature-tag">Sprints</span>
-                </div>
+                <h3>Modern Cafe</h3>
+                <p>Contemporary workspace design</p>
             </div>
-        </div>
-
-        <!-- Creative Template -->
-        <div class="template-card">
-            <div class="template-preview creative-preview">
-                <div class="template-icon">
-                    <i class="fas fa-palette"></i>
-                </div>
+        </a>
+        
+        <!-- Template 4: Cozy Cafe -->
+        <a href="{{ url_for('timer_template', template_id=4) }}" class="template-card earned" data-template="4">
+            <div class="template-status earned">Available</div>
+            <div class="template-preview">
+                <div class="template-icon">🏠</div>
             </div>
             <div class="template-info">
-                <h3>Creative Flow</h3>
-                <p>Flexible timing for creative projects</p>
-                <div class="template-features">
-                    <span class="feature-tag">Creative</span>
-                    <span class="feature-tag">Flexible</span>
-                    <span class="feature-tag">Flow</span>
-                </div>
+                <h3>Cozy Cafe</h3>
+                <p>Warm and inviting atmosphere</p>
             </div>
-        </div>
-
-        <!-- Meditation Template -->
-        <div class="template-card">
-            <div class="template-preview meditation-preview">
-                <div class="template-icon">
-                    <i class="fas fa-om"></i>
-                </div>
-            </div>
-            <div class="template-info">
-                <h3>Mindfulness</h3>
-                <p>Guided meditation and breathing sessions</p>
-                <div class="template-features">
-                    <span class="feature-tag">Meditation</span>
-                    <span class="feature-tag">Breathing</span>
-                    <span class="feature-tag">Calm</span>
-                </div>
-            </div>
-        </div>
-
-        <!-- Exercise Template -->
-        <div class="template-card">
-            <div class="template-preview exercise-preview">
-                <div class="template-icon">
-                    <i class="fas fa-dumbbell"></i>
-                </div>
-            </div>
-            <div class="template-info">
-                <h3>Workout Timer</h3>
-                <p>High-intensity interval training timer</p>
-                <div class="template-features">
-                    <span class="feature-tag">Exercise</span>
-                    <span class="feature-tag">HIIT</span>
-                    <span class="feature-tag">Energy</span>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Coming Soon Section -->
-    <div class="coming-soon">
-        <h2 class="text-white-50 mb-3">More Templates Coming Soon</h2>
-        <p class="text-white-50">We're constantly adding new productivity templates</p>
+        </a>
     </div>
 </div>
 {% endblock %} 

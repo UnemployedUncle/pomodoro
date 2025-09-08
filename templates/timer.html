@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+
+{% block title %}Focus Time - Timer{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/timer-template.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="timer-container template-{{ template_id }}" id="timerContainer">
+    <!-- Title -->
+    <div class="timer-title">Focus Time</div>
+    
+    <!-- Timer Display -->
+    <div class="timer-display" id="timerDisplay">25:00</div>
+    
+    <!-- Quote Display -->
+    <div class="timer-quote" id="currentQuote">It is not that we have a short time to live, but that we waste a lot of it.</div>
+    
+    <!-- Speaker Display -->
+    <div class="timer-speaker" id="currentSpeaker">Seneca</div>
+    
+    <!-- Session Status -->
+    <div class="session-status" id="sessionStatus">Focus Session 1 of 4</div>
+    
+    <!-- Focus Circles -->
+    <div class="focus-circles-container" id="focusCircles" style="display: none;">
+        <div class="focus-circle" id="circle1"></div>
+        <div class="focus-circle" id="circle2"></div>
+        <div class="focus-circle" id="circle3"></div>
+    </div>
+    
+    <!-- Progress Bars -->
+    <div class="timer-progress-bar">
+        <div class="progress-fill" id="cycleProgress" style="width: 0%;"></div>
+    </div>
+    <div class="timer-session-bar">
+        <div class="session-fill" id="sessionProgress" style="width: 0%;"></div>
+    </div>
+    
+    <!-- Control Buttons -->
+    <div class="control-buttons">
+        <button type="button" class="btn btn-primary" id="startBtn">
+            <i class="fas fa-play me-2"></i>Start
+        </button>
+    </div>
+</div>
+
+<!-- Package Ready Alert -->
+<div id="packageReady" class="package-section" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 1001;">
+    <div class="alert alert-success">
+        <i class="fas fa-gift me-2"></i>
+        <strong>Congratulations!</strong> You've completed 4 focus sessions!
+        <br>
+        <a href="{{ url_for('rewards') }}" class="btn btn-success btn-sm mt-2">
+            <i class="fas fa-gift me-1"></i>Collect Your Rewards
+        </a>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/timer.js') }}"></script>
+<script>
+    // Initialize timer with template ID
+    document.addEventListener('DOMContentLoaded', function() {
+        if (window.timerInstance) {
+            window.timerInstance.setTemplateId({{ template_id }});
+        }
+    });
+</script>
+{% endblock %}
