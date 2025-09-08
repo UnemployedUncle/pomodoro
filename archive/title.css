@@ -1,0 +1,150 @@
+/* title */
+
+position: relative;
+width: 1728px;
+height: 1117px;
+
+background: #FFFFFF;
+
+
+/* background */
+
+position: absolute;
+width: 1728px;
+height: 1117px;
+left: 0px;
+top: 0px;
+
+background: url(david-kennedy-hLhG0EyHS_0-unsplash.jpg);
+
+
+/* settings */
+
+position: absolute;
+width: 24px;
+height: 24px;
+left: 1656px;
+top: 38px;
+
+
+
+/* settings */
+
+position: absolute;
+left: 8.12%;
+right: 8.13%;
+top: 8.33%;
+bottom: 8.33%;
+
+/* M3/sys/light/background */
+background: #FEF7FF;
+
+
+/* schedule */
+
+position: absolute;
+width: 24px;
+height: 24px;
+left: 1610px;
+top: 38px;
+
+
+
+/* timer */
+
+position: absolute;
+left: 8.33%;
+right: 8.33%;
+top: 8.33%;
+bottom: 8.33%;
+
+/* M3/sys/light/background */
+background: #FEF7FF;
+
+
+/* sub-home-title */
+
+position: absolute;
+width: 93px;
+height: 21px;
+left: 56px;
+top: 41px;
+
+font-family: 'Helvetica';
+font-style: normal;
+font-weight: 300;
+font-size: 18px;
+line-height: 21px;
+/* identical to box height */
+
+color: #FFFFFF;
+
+
+
+/* home-title */
+
+position: absolute;
+width: 345px;
+height: 138px;
+left: 164px;
+top: 195px;
+
+font-family: 'Helvetica';
+font-style: normal;
+font-weight: 300;
+font-size: 64px;
+line-height: 24px;
+/* or 38% */
+display: flex;
+align-items: center;
+
+color: #FFFFFF;
+
+
+
+/* review-template */
+
+position: absolute;
+width: 689px;
+height: 446px;
+left: 164px;
+top: 394px;
+
+background: #D9D9D9;
+border-radius: 30px;
+
+
+/* review-template */
+
+position: absolute;
+width: 689px;
+height: 446px;
+left: 164px;
+top: 903px;
+
+background: #D9D9D9;
+border-radius: 30px;
+
+
+/* review-template */
+
+position: absolute;
+width: 689px;
+height: 446px;
+left: 917px;
+top: 394px;
+
+background: #D9D9D9;
+border-radius: 30px;
+
+
+/* review-template */
+
+position: absolute;
+width: 689px;
+height: 446px;
+left: 917px;
+top: 903px;
+
+background: #D9D9D9;
+border-radius: 30px;

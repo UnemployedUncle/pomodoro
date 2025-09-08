@@ -1,0 +1,228 @@
+/* settings */
+
+position: relative;
+width: 1728px;
+height: 1117px;
+
+background: #FFFFFF;
+
+
+/* background */
+
+position: absolute;
+width: 1728px;
+height: 1117px;
+left: 0px;
+top: 0px;
+
+background: url(irfan-syahmi-o3Ix5l0KJbs-unsplash.jpg), #000000;
+
+
+/* settings */
+
+position: absolute;
+width: 24px;
+height: 24px;
+left: 1656px;
+top: 38px;
+
+
+
+/* settings */
+
+position: absolute;
+left: 8.12%;
+right: 8.13%;
+top: 8.33%;
+bottom: 8.33%;
+
+/* M3/sys/light/background */
+background: #FEF7FF;
+
+
+/* schedule */
+
+position: absolute;
+width: 24px;
+height: 24px;
+left: 1610px;
+top: 38px;
+
+
+
+/* timer */
+
+position: absolute;
+left: 8.33%;
+right: 8.33%;
+top: 8.33%;
+bottom: 8.33%;
+
+/* M3/sys/light/background */
+background: #FEF7FF;
+
+
+/* title */
+
+position: absolute;
+width: 93px;
+height: 21px;
+left: 56px;
+top: 41px;
+
+font-family: 'Helvetica';
+font-style: normal;
+font-weight: 300;
+font-size: 18px;
+line-height: 21px;
+/* identical to box height */
+
+color: #FFFFFF;
+
+
+
+/* settings-title */
+
+position: absolute;
+width: 345px;
+height: 138px;
+left: 149px;
+top: 149px;
+
+font-family: 'Helvetica';
+font-style: normal;
+font-weight: 300;
+font-size: 64px;
+line-height: 24px;
+/* or 38% */
+display: flex;
+align-items: center;
+
+color: #FFFFFF;
+
+
+
+/* quotes */
+
+position: absolute;
+width: 345px;
+height: 36px;
+left: 149px;
+top: 325px;
+
+font-family: 'Helvetica';
+font-style: normal;
+font-weight: 300;
+font-size: 32px;
+line-height: 24px;
+/* or 75% */
+display: flex;
+align-items: center;
+
+color: #FFFFFF;
+
+
+
+/* reward */
+
+position: absolute;
+width: 345px;
+height: 36px;
+left: 149px;
+top: 737px;
+
+font-family: 'Helvetica';
+font-style: normal;
+font-weight: 300;
+font-size: 32px;
+line-height: 24px;
+/* or 75% */
+display: flex;
+align-items: center;
+
+color: #FFFFFF;
+
+
+
+/* user-quote-card */
+
+position: absolute;
+width: 323px;
+height: 226px;
+left: 149px;
+top: 399px;
+
+background: #D9D9D9;
+border-radius: 30px;
+
+
+/* user-quote-card */
+
+position: absolute;
+width: 323px;
+height: 226px;
+left: 504px;
+top: 399px;
+
+background: #D9D9D9;
+border-radius: 30px;
+
+
+/* user-quote-card */
+
+position: absolute;
+width: 323px;
+height: 226px;
+left: 860px;
+top: 399px;
+
+background: #D9D9D9;
+border-radius: 30px;
+
+
+/* user-quote-card */
+
+position: absolute;
+width: 323px;
+height: 226px;
+left: 1215px;
+top: 399px;
+
+background: #D9D9D9;
+border-radius: 30px;
+
+
+/* user-quote-card */
+
+position: absolute;
+width: 323px;
+height: 226px;
+left: 1566px;
+top: 399px;
+
+background: #D9D9D9;
+border-radius: 30px;
+
+
+/* reward-template */
+
+position: absolute;
+width: 688px;
+height: 445px;
+left: 149px;
+top: 811px;
+
+background: #D9D9D9;
+border-radius: 30px;
+
+
+/* reward-template */
+
+position: absolute;
+width: 688px;
+height: 445px;
+left: 878px;
+top: 811px;
+
+background: #D9D9D9;
+border-radius: 30px;

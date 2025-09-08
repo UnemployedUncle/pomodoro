@@ -1,0 +1,203 @@
+/* timer_template */
+
+position: relative;
+width: 1728px;
+height: 1117px;
+
+background: #FFFFFF;
+
+
+/* background */
+
+position: absolute;
+width: 1728px;
+height: 1117px;
+left: 0px;
+top: 0px;
+
+background: #000000;
+
+
+/* timer */
+
+position: absolute;
+width: 476px;
+height: 204px;
+left: 103px;
+top: 372px;
+
+font-family: 'Helvetica';
+font-style: normal;
+font-weight: 300;
+font-size: 158px;
+line-height: 182px;
+display: flex;
+align-items: center;
+
+color: #FFFFFF;
+
+
+
+/* quote */
+
+position: absolute;
+width: 391px;
+height: 74px;
+left: 108px;
+top: 561px;
+
+font-family: 'Helvetica';
+font-style: normal;
+font-weight: 300;
+font-size: 32px;
+line-height: 37px;
+
+color: #FFFFFF;
+
+
+
+/* speaker */
+
+position: absolute;
+width: 114px;
+height: 23px;
+left: 108px;
+top: 663px;
+
+font-family: 'Helvetica';
+font-style: normal;
+font-weight: 300;
+font-size: 20px;
+line-height: 23px;
+/* identical to box height */
+
+color: #FFFFFF;
+
+
+
+/* title */
+
+position: absolute;
+width: 93px;
+height: 21px;
+left: 56px;
+top: 41px;
+
+font-family: 'Helvetica';
+font-style: normal;
+font-weight: 300;
+font-size: 18px;
+line-height: 21px;
+/* identical to box height */
+
+color: #FFFFFF;
+
+
+
+/* focus */
+
+position: absolute;
+width: 106px;
+height: 20.71px;
+left: 812px;
+top: 959px;
+
+
+
+/* focus1 */
+
+position: absolute;
+width: 20.71px;
+height: 20.71px;
+left: 812px;
+top: 959px;
+
+background: #D9D9D9;
+
+
+/* focus2 */
+
+position: absolute;
+width: 20.71px;
+height: 20.71px;
+left: 854.64px;
+top: 959px;
+
+background: #D9D9D9;
+
+
+/* focus3 */
+
+position: absolute;
+width: 20.71px;
+height: 20.71px;
+left: 897.29px;
+top: 959px;
+
+background: #D9D9D9;
+
+
+/* progressbar */
+
+position: absolute;
+width: 1693px;
+height: 4px;
+left: 18px;
+top: 1099px;
+
+background: #D9D9D9;
+
+
+/* sessionbar */
+
+position: absolute;
+width: 423px;
+height: 4px;
+left: 18px;
+top: 1093px;
+
+background: #D9D9D9;
+
+
+/* settings */
+
+position: absolute;
+width: 24px;
+height: 24px;
+left: 1656px;
+top: 38px;
+
+
+
+/* settings */
+
+position: absolute;
+left: 8.12%;
+right: 8.13%;
+top: 8.33%;
+bottom: 8.33%;
+
+/* M3/sys/light/background */
+background: #FEF7FF;
+
+
+/* schedule */
+
+position: absolute;
+width: 24px;
+height: 24px;
+left: 1610px;
+top: 38px;
+
+
+
+/* timer */
+
+position: absolute;
+left: 8.33%;
+right: 8.33%;
+top: 8.33%;
+bottom: 8.33%;
+
+/* M3/sys/light/background */
+background: #FEF7FF;
