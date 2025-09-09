@@ -4,61 +4,54 @@
 .home-container {
     position: relative;
     width: 100vw;
-    height: 100vh;
-    background: url('../../archive/david-kennedy-hLhG0EyHS_0-unsplash.jpg') center/cover no-repeat;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
+    min-height: 100vh;
+    background: url('/tmp/background/david-kennedy-hLhG0EyHS_0-unsplash.jpg') center/cover no-repeat;
+    overflow-y: auto;
 }
 
 /* Home Title */
 .home-title {
     position: absolute;
-    width: 345px;
-    height: 138px;
-    left: 9.5%;
-    top: 17.5%;
+    width: auto;
+    max-width: 80%;
+    left: 164px;
+    top: 195px;
     font-family: 'Helvetica', Arial, sans-serif;
     font-style: normal;
     font-weight: 300;
     font-size: 64px;
     line-height: 1.2;
-    display: flex;
-    align-items: center;
     color: #FFFFFF;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+    white-space: nowrap;
 }
 
 /* Sub Home Title */
 .sub-home-title {
     position: absolute;
-    width: 93px;
-    height: 21px;
-    left: 3.2%;
-    top: 3.7%;
+    width: auto;
+    max-width: 80%;
+    left: 164px;
+    top: 300px;
     font-family: 'Helvetica', Arial, sans-serif;
     font-style: normal;
     font-weight: 300;
-    font-size: 18px;
-    line-height: 21px;
+    font-size: 24px;
+    line-height: 28px;
     color: #FFFFFF;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+    white-space: nowrap;
 }
+
 
 /* Template Grid Container */
 .template-grid {
-    position: absolute;
+    position: relative;
     width: 100%;
-    height: 100%;
     display: grid;
     grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr 1fr;
     gap: 2rem;
     padding: 0 9.5%;
-    top: 35%;
-    left: 0;
+    margin-top: 40%;
+    padding-bottom: 4rem;
 }
 
 /* Template Cards */
@@ -101,6 +94,20 @@
 .template-card.locked:hover {
     transform: none;
     box-shadow: none;
+}
+
+.template-card.placeholder {
+    background: rgba(255, 255, 255, 0.05);
+    border: 2px dashed rgba(255, 255, 255, 0.2);
+    cursor: default;
+    opacity: 0.7;
+}
+
+.template-card.placeholder:hover {
+    transform: none;
+    box-shadow: none;
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.3);
 }
 
 /* Template Preview */
@@ -167,7 +174,6 @@
 @media (max-width: 1200px) {
     .template-grid {
         grid-template-columns: 1fr;
-        grid-template-rows: repeat(4, 1fr);
         gap: 1rem;
         padding: 0 5%;
     }
@@ -178,16 +184,33 @@
     
     .home-title {
         font-size: 48px;
-        left: 5%;
+        left: 120px;
+        top: 150px;
+    }
+    
+    .sub-home-title {
+        left: 120px;
+        top: 240px;
+        font-size: 20px;
     }
 }
 
 @media (max-width: 768px) {
+    
     .home-title {
         font-size: 36px;
-        width: 80%;
-        left: 10%;
-        text-align: center;
+        left: 80px;
+        top: 120px;
+        text-align: left;
+        white-space: normal;
+    }
+    
+    .sub-home-title {
+        left: 80px;
+        top: 210px;
+        font-size: 18px;
+        text-align: left;
+        white-space: normal;
     }
     
     .template-card {
@@ -208,9 +231,19 @@
 }
 
 @media (max-width: 480px) {
+    
     .home-title {
         font-size: 28px;
+        left: 40px;
+        top: 100px;
     }
+    
+    .sub-home-title {
+        left: 40px;
+        top: 180px;
+        font-size: 16px;
+    }
+    
     
     .template-card {
         height: 200px;

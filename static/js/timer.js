@@ -38,7 +38,6 @@ class PomodoroTimer {
         this.circle3 = document.getElementById('circle3');
         this.currentQuote = document.getElementById('currentQuote');
         this.currentSpeaker = document.getElementById('currentSpeaker');
-        this.sessionStatus = document.getElementById('sessionStatus');
         this.timerContainer = document.getElementById('timerContainer');
     }
 
@@ -213,12 +212,6 @@ class PomodoroTimer {
         // Update timer display
         if (this.timerDisplay) {
             this.timerDisplay.textContent = data.remaining_time;
-        }
-        
-        // Update session status
-        if (this.sessionStatus) {
-            const sessionType = data.current_state === 'focus' ? 'Focus' : 'Break';
-            this.sessionStatus.textContent = `${sessionType} Session ${data.completed_sessions + 1} of ${this.totalSessions}`;
         }
         
         // Update button states

@@ -534,4 +534,134 @@ body {
 @keyframes spin {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
+}
+
+/* Floating Navigation */
+.floating-nav {
+    position: fixed;
+    top: 38px;
+    right: 56px;
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    z-index: 1000;
+}
+
+.floating-nav-item {
+    width: 50px;
+    height: 50px;
+    background: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.floating-nav-item:hover {
+    transform: scale(1.1);
+    color: white;
+    text-decoration: none;
+}
+
+.floating-nav-item i {
+    font-size: 18px;
+    transition: transform 0.2s ease;
+}
+
+.floating-nav-item:hover i {
+    transform: scale(1.1);
+}
+
+/* Fixed App Title */
+.app-title-fixed {
+    position: fixed;
+    top: 41px;
+    left: 56px;
+    z-index: 1000;
+}
+
+.app-title-link-fixed {
+    font-family: 'Helvetica', Arial, sans-serif;
+    font-weight: 300;
+    font-size: 18px;
+    color: #FFFFFF;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.app-title-link-fixed:hover {
+    color: rgba(255, 255, 255, 0.8);
+    text-decoration: none;
+    transform: scale(1.05);
+}
+
+/* Responsive floating nav */
+@media (max-width: 1200px) {
+    .floating-nav {
+        right: 40px;
+        gap: 15px;
+    }
+    
+    .floating-nav-item {
+        width: 40px;
+        height: 40px;
+    }
+    
+    .floating-nav-item i {
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 768px) {
+    .floating-nav {
+        top: 20px;
+        right: 30px;
+        gap: 12px;
+    }
+    
+    .floating-nav-item {
+        width: 35px;
+        height: 35px;
+    }
+    
+    .floating-nav-item i {
+        font-size: 14px;
+    }
+    
+    .app-title-fixed {
+        top: 30px;
+        left: 40px;
+    }
+    
+    .app-title-link-fixed {
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    .floating-nav {
+        top: 15px;
+        right: 20px;
+        gap: 10px;
+    }
+    
+    .floating-nav-item {
+        width: 30px;
+        height: 30px;
+    }
+    
+    .floating-nav-item i {
+        font-size: 12px;
+    }
+    
+    .app-title-fixed {
+        top: 20px;
+        left: 30px;
+    }
+    
+    .app-title-link-fixed {
+        font-size: 14px;
+    }
 } 
