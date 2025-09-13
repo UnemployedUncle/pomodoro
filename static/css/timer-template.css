@@ -48,8 +48,8 @@
     position: absolute;
     width: 400px;
     height: 180px;
-    left: 56px;
-    top: 195px;
+    left: 103px;
+    top: 372px;
     font-family: 'Helvetica', Arial, sans-serif;
     font-style: normal;
     font-weight: 300;
@@ -65,8 +65,8 @@
     position: absolute;
     width: 300px;
     height: 60px;
-    left: 56px;
-    top: 400px;
+    left: 103px;
+    top: 580px;
     font-family: 'Helvetica', Arial, sans-serif;
     font-style: normal;
     font-weight: 300;
@@ -80,8 +80,8 @@
     position: absolute;
     width: 200px;
     height: 20px;
-    left: 56px;
-    top: 470px;
+    left: 103px;
+    top: 668px;
     font-family: 'Helvetica', Arial, sans-serif;
     font-style: normal;
     font-weight: 300;
@@ -211,21 +211,21 @@
     .timer-display {
         font-size: 120px;
         width: 350px;
-        left: 40px;
-        top: 150px;
+        left: 80px;
+        top: 300px;
     }
     
     .timer-quote {
         font-size: 20px;
         width: 280px;
-        left: 40px;
-        top: 320px;
+        left: 80px;
+        top: 480px;
     }
     
     .timer-speaker {
         font-size: 14px;
-        left: 40px;
-        top: 380px;
+        left: 80px;
+        top: 568px;
     }
 }
 
@@ -233,21 +233,21 @@
     .timer-display {
         font-size: 80px;
         width: 280px;
-        left: 30px;
-        top: 120px;
+        left: 60px;
+        top: 250px;
     }
     
     .timer-quote {
         font-size: 16px;
         width: 220px;
-        left: 30px;
-        top: 250px;
+        left: 60px;
+        top: 400px;
     }
     
     .timer-speaker {
         font-size: 12px;
-        left: 30px;
-        top: 300px;
+        left: 60px;
+        top: 488px;
     }
     
     .focus-circles-container {
@@ -258,21 +258,21 @@
 @media (max-width: 480px) {
     .timer-display {
         font-size: 60px;
-        left: 20px;
-        top: 100px;
+        left: 40px;
+        top: 200px;
     }
     
     .timer-quote {
         font-size: 16px;
         width: 200px;
-        left: 20px;
-        top: 200px;
+        left: 40px;
+        top: 320px;
     }
     
     .timer-speaker {
         font-size: 12px;
-        left: 20px;
-        top: 240px;
+        left: 40px;
+        top: 408px;
     }
     
     .focus-circles-container {

@@ -105,7 +105,7 @@ python3 app.py
 ```
 
 4. **Access the application**
-   - Open your browser and go to `http://localhost:5001`
+   - Open your browser and go to `e  u`
    - Set up your photo and quote preferences
    - Start your first Pomodoro session!
 

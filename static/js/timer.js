@@ -108,10 +108,10 @@ class PomodoroTimer {
         if (this.circle2) this.circle2.classList.remove('disappearing');
         if (this.circle3) this.circle3.classList.remove('disappearing');
         
-        // Add disappearing class to inactive circles
-        if (activeCount < 3 && this.circle1) this.circle1.classList.add('disappearing');
-        if (activeCount < 2 && this.circle2) this.circle2.classList.add('disappearing');
+        // Add disappearing class to inactive circles (remove from back)
         if (activeCount < 1 && this.circle3) this.circle3.classList.add('disappearing');
+        if (activeCount < 2 && this.circle2) this.circle2.classList.add('disappearing');
+        if (activeCount < 3 && this.circle1) this.circle1.classList.add('disappearing');
     }
 
     hideFocusCircles() {
