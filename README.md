@@ -1,5 +1,7 @@
 # Pomodoro Timer App
 
+test
+
 A clean, minimalist Flask-based web application that implements the Pomodoro Technique with a unique reward system featuring personalized photos and motivational quotes.
 
 ## 🎯 Core Features
