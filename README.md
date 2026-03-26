@@ -49,7 +49,7 @@ Admin
 
 Design
 Concept: Minimalistic design for lower distraction. Photos on the background with typography of the quotes
-Responsive Design: It should be used on desktop, mobile, and tablet.
+Responsive Design: It should be used on iphone(mobile), ipad(tablet), mac(desktop).
 
 
 Architecture

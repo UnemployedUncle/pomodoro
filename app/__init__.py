@@ -1,0 +1,1 @@
+"""Pure Focus application package."""

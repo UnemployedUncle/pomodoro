@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pure Focus</title>
+  <link rel="stylesheet" href="/static/css/app.css">
+</head>
+<body data-google-client-id="{{ google_client_id }}">
+  <div class="app-shell">
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">Pure Focus</p>
+        <h1>Function-first MVP</h1>
+      </div>
+      <div id="user-bar" class="user-bar">
+        <button id="logout-btn" class="ghost hidden" type="button">Logout</button>
+      </div>
+    </header>
+
+    <main class="layout">
+      <section id="auth-panel" class="panel">
+        <h2>Login</h2>
+        <p>Google callback endpoint is available for production wiring. For local development, use the demo login.</p>
+        <div class="auth-actions">
+          <button id="demo-login-btn" type="button">Continue In Demo Mode</button>
+        </div>
+      </section>
+
+      <section id="summary-panel" class="panel hidden">
+        <div class="panel-header">
+          <h2>Dashboard</h2>
+        </div>
+        <div class="summary-grid">
+          <article>
+            <span>Completed Focus</span>
+            <strong id="focus-count">0</strong>
+          </article>
+          <article>
+            <span>Checked Todo</span>
+            <strong id="todo-count">0</strong>
+          </article>
+          <article>
+            <span>Remaining Nottodo</span>
+            <strong id="nottodo-count">0</strong>
+          </article>
+        </div>
+        <div id="calendar-grid" class="calendar-grid"></div>
+      </section>
+
+      <section id="cycles-panel" class="panel hidden">
+        <div class="panel-header">
+          <h2>Cycles</h2>
+          <p>Owned cycles can be used in setup. Trial cycles can be run as presets but cannot be edited.</p>
+        </div>
+        <div id="cycles-list" class="cycle-list"></div>
+      </section>
+
+      <section id="builder-panel" class="panel hidden">
+        <div class="panel-header">
+          <h2>Custom Cycle Setup</h2>
+          <p>Drag focus cards to reorder them. Edges represent break time in seconds.</p>
+        </div>
+        <div class="builder-toolbar">
+          <input id="cycle-name" type="text" placeholder="Custom cycle name">
+          <button id="add-focus-btn" type="button" class="ghost">Add Focus</button>
+          <button id="remove-focus-btn" type="button" class="ghost">Remove Last</button>
+          <button id="save-cycle-btn" type="button">Save Custom Cycle</button>
+        </div>
+        <div id="builder-canvas" class="builder-canvas"></div>
+      </section>
+
+      <section id="run-setup-panel" class="panel hidden">
+        <div class="panel-header">
+          <h2>Run Setup</h2>
+          <p id="run-setup-title"></p>
+        </div>
+        <div id="run-setup-list" class="run-setup-list"></div>
+        <div class="run-actions">
+          <button id="start-run-btn" type="button">Start Run</button>
+        </div>
+      </section>
+
+      <section id="timer-panel" class="panel hidden">
+        <div id="timer-hero" class="timer-hero">
+          <div class="timer-overlay">
+            <div class="click-indicator">
+              <span class="click-indicator-label">Stop In 3 Taps</span>
+              <div class="click-dots">
+                <span class="click-dot" data-click-dot="0"></span>
+                <span class="click-dot" data-click-dot="1"></span>
+                <span class="click-dot" data-click-dot="2"></span>
+              </div>
+            </div>
+            <p id="timer-mode" class="eyebrow">Idle</p>
+            <h2 id="timer-clock">00</h2>
+            <p id="timer-quote" class="timer-quote">Choose a cycle and prepare a run.</p>
+            <p id="timer-author" class="timer-author"></p>
+            <p id="timer-source" class="timer-source"></p>
+            <div class="progress-shell">
+              <div id="timer-progress" class="progress-bar"></div>
+            </div>
+            <p class="timer-hint">Triple-click anywhere to stop and reset the current run.</p>
+          </div>
+        </div>
+        <div id="task-panel" class="task-panel"></div>
+      </section>
+
+      <section id="collection-panel" class="panel hidden">
+        <div class="panel-header">
+          <h2>Collection</h2>
+        </div>
+        <div id="collection-list" class="collection-list"></div>
+      </section>
+    </main>
+  </div>
+
+  <div id="modal-backdrop" class="modal-backdrop hidden">
+    <div id="modal-box" class="modal-box"></div>
+  </div>
+
+  <script src="/static/js/app.js"></script>
+</body>
+</html>
