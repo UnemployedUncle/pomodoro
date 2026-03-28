@@ -56,7 +56,9 @@ Architecture
 Clear architecture how does the application works.
 
 # Stitch Prototype
-https://stitch.withgoogle.com/preview/8374986689812423367?node-id=d3a285ec8b09411f8bab2683a1770a93
+https://stitch.withgoogle.com/projects/8374986689812423367
+
+
 
 Business Model
 - Ads
