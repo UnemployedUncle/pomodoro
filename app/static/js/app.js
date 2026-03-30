@@ -14,6 +14,7 @@ const state = {
   clickBurst: [],
   clickBurstResetTimer: null,
   audioContext: null,
+  activeView: "dashboard",
 };
 
 const elements = {};
@@ -26,6 +27,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
 function cacheElements() {
   elements.authPanel = document.getElementById("auth-panel");
+  elements.workspace = document.getElementById("workspace");
+  elements.bottomNav = document.getElementById("bottom-nav");
+  elements.viewPanels = Array.from(document.querySelectorAll("[data-view-panel]"));
+  elements.navTabs = Array.from(document.querySelectorAll("[data-view-target]"));
   elements.summaryPanel = document.getElementById("summary-panel");
   elements.cyclesPanel = document.getElementById("cycles-panel");
   elements.builderPanel = document.getElementById("builder-panel");
@@ -48,6 +53,7 @@ function cacheElements() {
   elements.runSetupList = document.getElementById("run-setup-list");
   elements.startRunBtn = document.getElementById("start-run-btn");
   elements.timerHero = document.getElementById("timer-hero");
+  elements.timerOrb = document.getElementById("timer-orb");
   elements.timerMode = document.getElementById("timer-mode");
   elements.timerClock = document.getElementById("timer-clock");
   elements.timerQuote = document.getElementById("timer-quote");
@@ -56,9 +62,9 @@ function cacheElements() {
   elements.timerProgress = document.getElementById("timer-progress");
   elements.taskPanel = document.getElementById("task-panel");
   elements.collectionList = document.getElementById("collection-list");
+  elements.settingIdentity = document.getElementById("setting-identity");
   elements.modalBackdrop = document.getElementById("modal-backdrop");
   elements.modalBox = document.getElementById("modal-box");
-  elements.userBar = document.getElementById("user-bar");
   elements.clickDots = Array.from(document.querySelectorAll("[data-click-dot]"));
 }
 
@@ -69,6 +75,9 @@ function bindEvents() {
   elements.removeFocusBtn.addEventListener("click", removeBuilderNode);
   elements.saveCycleBtn.addEventListener("click", saveCustomCycle);
   elements.startRunBtn.addEventListener("click", startPreparedRun);
+  elements.navTabs.forEach((button) => {
+    button.addEventListener("click", () => setActiveView(button.dataset.viewTarget));
+  });
   window.addEventListener("click", handleTripleClick);
 }
 
@@ -112,51 +121,63 @@ async function refreshData() {
 
 function renderLoggedOut() {
   state.me = null;
+  state.activeView = "dashboard";
   elements.authPanel.classList.remove("hidden");
-  elements.summaryPanel.classList.add("hidden");
-  elements.cyclesPanel.classList.add("hidden");
-  elements.builderPanel.classList.add("hidden");
+  elements.workspace.classList.add("hidden");
+  elements.bottomNav.classList.add("hidden");
   elements.runSetupPanel.classList.add("hidden");
-  elements.timerPanel.classList.add("hidden");
-  elements.collectionPanel.classList.add("hidden");
-  elements.logoutBtn.classList.add("hidden");
-  elements.userBar.querySelectorAll(".user-pill").forEach((node) => node.remove());
+  elements.settingIdentity.innerHTML = "";
 }
 
 function renderLoggedIn() {
   elements.authPanel.classList.add("hidden");
-  elements.summaryPanel.classList.remove("hidden");
-  elements.cyclesPanel.classList.remove("hidden");
-  elements.builderPanel.classList.remove("hidden");
-  elements.timerPanel.classList.remove("hidden");
-  elements.collectionPanel.classList.remove("hidden");
-  elements.logoutBtn.classList.remove("hidden");
-  updateUserBar();
+  elements.workspace.classList.remove("hidden");
+  elements.bottomNav.classList.remove("hidden");
+  renderSessionIdentity();
   renderSummary();
   renderCycles();
   renderBuilder();
   renderCollection();
   renderTimerIdle();
   renderClickDots(0);
+  setActiveView(state.activeView || "dashboard");
 }
 
-function updateUserBar() {
-  elements.userBar.querySelectorAll(".user-pill").forEach((node) => node.remove());
-  const pill = document.createElement("div");
-  pill.className = "user-pill";
-  pill.textContent = state.me.nickname;
-  elements.userBar.prepend(pill);
+function renderSessionIdentity() {
+  if (!state.me) {
+    elements.settingIdentity.innerHTML = "";
+    return;
+  }
+  elements.settingIdentity.innerHTML = `
+    <strong>${escapeHTML(state.me.nickname)}</strong>
+    <span>${escapeHTML(state.me.email)}</span>
+  `;
+}
+
+function setActiveView(viewName) {
+  state.activeView = viewName;
+  elements.viewPanels.forEach((panel) => {
+    panel.classList.toggle("hidden", panel.dataset.viewPanel !== viewName);
+  });
+  elements.navTabs.forEach((button) => {
+    const active = button.dataset.viewTarget === viewName;
+    button.classList.toggle("active", active);
+    button.setAttribute("aria-selected", active ? "true" : "false");
+  });
 }
 
 function renderSummary() {
-  elements.focusCount.textContent = state.summary.focusCount;
-  elements.todoCount.textContent = state.summary.todoCount;
-  elements.nottodoCount.textContent = state.summary.nottodoCount;
-  if (!state.summary.focusCalendar.length) {
-    elements.calendarGrid.innerHTML = "<p>No focus history yet.</p>";
+  const summary = state.summary || { focusCount: 0, todoCount: 0, nottodoCount: 0, focusCalendar: [] };
+  elements.focusCount.textContent = summary.focusCount;
+  elements.todoCount.textContent = summary.todoCount;
+  elements.nottodoCount.textContent = summary.nottodoCount;
+
+  const calendarEntries = [...summary.focusCalendar].sort((left, right) => String(left.date).localeCompare(String(right.date)));
+  if (!calendarEntries.length) {
+    elements.calendarGrid.innerHTML = '<p class="calendar-empty">No focus history yet. Complete a run to start filling the dashboard.</p>';
     return;
   }
-  elements.calendarGrid.innerHTML = state.summary.focusCalendar.map((entry) => `
+  elements.calendarGrid.innerHTML = calendarEntries.map((entry) => `
     <article class="calendar-cell">
       <strong>${entry.count}</strong>
       <div>${entry.date}</div>
@@ -165,6 +186,10 @@ function renderSummary() {
 }
 
 function renderCycles() {
+  if (!state.cycles.length) {
+    elements.cyclesList.innerHTML = "<p>No cycles available yet.</p>";
+    return;
+  }
   elements.cyclesList.innerHTML = state.cycles.map((cycle) => `
     <article class="cycle-card">
       <div class="panel-header">
@@ -282,7 +307,7 @@ function bindBuilderControls() {
     input.addEventListener("input", (event) => {
       const index = Number(event.target.dataset.index);
       const field = event.target.dataset.field;
-      const value = event.target.tagName === "SELECT" ? Number(event.target.value) : Number(event.target.value);
+      const value = Number(event.target.value);
       state.builderNodes[index][field] = value;
     });
   });
@@ -347,6 +372,7 @@ function prepareRun(cycleId) {
   elements.runSetupPanel.classList.remove("hidden");
   elements.runSetupTitle.textContent = `${cycle.name} · ${cycle.owned ? "owned" : "trial"} mode`;
   renderRunSetup();
+  setActiveView("setting");
   elements.runSetupPanel.scrollIntoView({ behavior: "smooth", block: "start" });
 }
 
@@ -411,6 +437,7 @@ async function startPreparedRun() {
   elements.modalBackdrop.classList.add("hidden");
   startInterval();
   renderRun();
+  setActiveView("timer");
   elements.timerPanel.scrollIntoView({ behavior: "smooth", block: "start" });
 }
 
@@ -501,26 +528,30 @@ function renderRun() {
   }
   const currentNode = state.run.cycle.focusNodes[state.run.index];
   const phaseLabel = state.run.phase === "focus" ? `Focus ${currentNode.nodeOrder}` : `Break ${currentNode.nodeOrder}`;
+  const progress = state.run.totalSeconds > 0
+    ? ((state.run.totalSeconds - state.run.remainingSeconds) / state.run.totalSeconds) * 100
+    : 0;
   elements.timerMode.textContent = phaseLabel;
   elements.timerClock.textContent = formatSeconds(state.run.remainingSeconds);
   elements.timerQuote.textContent = currentNode.quote.text;
-  elements.timerAuthor.textContent = currentNode.quote.authorName;
-  elements.timerSource.textContent = currentNode.photo.sourceLabel || "";
-  elements.timerHero.style.backgroundImage = `linear-gradient(120deg, rgba(30, 26, 22, 0.72), rgba(30, 26, 22, 0.18)), url('${currentNode.photo.url}')`;
-  const progress = ((state.run.totalSeconds - state.run.remainingSeconds) / state.run.totalSeconds) * 100;
+  elements.timerAuthor.textContent = currentNode.quote.authorName ? `Quote by ${currentNode.quote.authorName}` : "";
+  elements.timerSource.textContent = currentNode.photo.sourceLabel ? `Photo source ${currentNode.photo.sourceLabel}` : "";
+  elements.timerHero.style.backgroundImage = `linear-gradient(180deg, rgba(7, 7, 7, 0.22), rgba(7, 7, 7, 0.76)), linear-gradient(120deg, rgba(16, 16, 16, 0.28), rgba(16, 16, 16, 0.48)), url('${currentNode.photo.url}')`;
   elements.timerProgress.style.width = `${Math.max(progress, 0)}%`;
+  elements.timerOrb.style.setProperty("--timer-progress-deg", `${Math.max(progress, 0) * 3.6}deg`);
   renderTasks();
 }
 
 function renderTimerIdle() {
   elements.timerMode.textContent = "Idle";
-  elements.timerClock.textContent = "00";
-  elements.timerQuote.textContent = "Choose a cycle and prepare a run.";
+  elements.timerClock.textContent = "00:00";
+  elements.timerQuote.textContent = "Choose a cycle in Setting and prepare a run.";
   elements.timerAuthor.textContent = "";
   elements.timerSource.textContent = "";
-  elements.timerHero.style.backgroundImage = "linear-gradient(120deg, rgba(30, 26, 22, 0.72), rgba(30, 26, 22, 0.18))";
+  elements.timerHero.style.backgroundImage = "linear-gradient(180deg, rgba(7, 7, 7, 0.24), rgba(7, 7, 7, 0.74)), linear-gradient(120deg, rgba(18, 18, 18, 0.4), rgba(18, 18, 18, 0.8))";
   elements.timerProgress.style.width = "0%";
-  elements.taskPanel.innerHTML = "<p>No active run.</p>";
+  elements.timerOrb.style.setProperty("--timer-progress-deg", "0deg");
+  elements.taskPanel.innerHTML = "<p>No active run. Build a cycle in Setting and start when ready.</p>";
   renderClickDots(0);
 }
 
@@ -529,7 +560,7 @@ function renderTasks() {
     return;
   }
   if (state.run.phase !== "focus") {
-    elements.taskPanel.innerHTML = "<p>Break session. Wait for the next focus or stop the run.</p>";
+    elements.taskPanel.innerHTML = "<p>Break session. Wait for the next focus or triple-click to stop the run.</p>";
     return;
   }
   const focusState = state.run.focusStates[state.run.index];
@@ -637,6 +668,7 @@ async function finishRewardFlow() {
   renderCycles();
   renderBuilder();
   renderCollection();
+  setActiveView("dashboard");
 }
 
 async function stopRunOnServer() {
@@ -734,7 +766,7 @@ function playSessionEndSound() {
 
 function renderCollection() {
   if (!state.collection.length) {
-    elements.collectionList.innerHTML = "<p>No collected cycles yet.</p>";
+    elements.collectionList.innerHTML = "<p>No collected cycles yet. Finish a full run to unlock one here.</p>";
     return;
   }
   elements.collectionList.innerHTML = state.collection.map((item) => `
@@ -748,7 +780,7 @@ function renderCollection() {
       <div class="focus-strip">
         ${item.focusNodes.map((node) => `
           <div class="focus-mini">
-            <img src="${node.photo.url}" alt="" style="width:100%;height:90px;object-fit:cover;border-radius:12px;">
+            <img src="${node.photo.url}" alt="">
             <p>${escapeHTML(shorten(node.quote.text, 48))}</p>
           </div>
         `).join("")}

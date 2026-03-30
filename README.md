@@ -58,9 +58,10 @@ Clear architecture how does the application works.
 # Stitch Prototype
 https://stitch.withgoogle.com/projects/8374986689812423367
 
+Integration document:
+- [docs/pure_focus_stitch_integration.md](docs/pure_focus_stitch_integration.md)
 
 
 Business Model
 - Ads
-
 

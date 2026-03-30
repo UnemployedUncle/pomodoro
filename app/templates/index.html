@@ -4,115 +4,185 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Pure Focus</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&family=Noto+Serif:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/static/css/app.css">
 </head>
 <body data-google-client-id="{{ google_client_id }}">
   <div class="app-shell">
     <header class="topbar">
-      <div>
-        <p class="eyebrow">Pure Focus</p>
-        <h1>Function-first MVP</h1>
-      </div>
-      <div id="user-bar" class="user-bar">
-        <button id="logout-btn" class="ghost hidden" type="button">Logout</button>
-      </div>
+      <div class="brand-wordmark">Pure Focus</div>
     </header>
 
-    <main class="layout">
-      <section id="auth-panel" class="panel">
-        <h2>Login</h2>
-        <p>Google callback endpoint is available for production wiring. For local development, use the demo login.</p>
+    <main class="app-main">
+      <section id="auth-panel" class="auth-panel glass-panel">
+        <p class="section-kicker">Welcome</p>
+        <h1>Function-first focus, now in the Stitch shell.</h1>
+        <p class="lead-copy">Use the demo login to enter the app. Internal navigation is organized into Timer, Dashboard, and Setting.</p>
         <div class="auth-actions">
           <button id="demo-login-btn" type="button">Continue In Demo Mode</button>
         </div>
       </section>
 
-      <section id="summary-panel" class="panel hidden">
-        <div class="panel-header">
-          <h2>Dashboard</h2>
-        </div>
-        <div class="summary-grid">
-          <article>
-            <span>Completed Focus</span>
-            <strong id="focus-count">0</strong>
-          </article>
-          <article>
-            <span>Checked Todo</span>
-            <strong id="todo-count">0</strong>
-          </article>
-          <article>
-            <span>Remaining Nottodo</span>
-            <strong id="nottodo-count">0</strong>
-          </article>
-        </div>
-        <div id="calendar-grid" class="calendar-grid"></div>
-      </section>
+      <div id="workspace" class="workspace hidden">
+        <section id="dashboard-view" class="app-view hidden" data-view-panel="dashboard">
+          <div class="view-intro">
+            <p class="section-kicker">Dashboard</p>
+            <h1>The rhythm of discipline.</h1>
+            <p class="lead-copy">Focus history, captured progress, and unlocked cycles are gathered into one reflective view.</p>
+          </div>
 
-      <section id="cycles-panel" class="panel hidden">
-        <div class="panel-header">
-          <h2>Cycles</h2>
-          <p>Owned cycles can be used in setup. Trial cycles can be run as presets but cannot be edited.</p>
-        </div>
-        <div id="cycles-list" class="cycle-list"></div>
-      </section>
+          <section id="summary-panel" class="glass-panel surface-panel">
+            <div class="panel-header panel-header-stack">
+              <div>
+                <p class="section-kicker">Focus Calendar</p>
+                <h2>Current momentum</h2>
+              </div>
+              <p class="panel-caption">Summary and calendar stay together in Dashboard.</p>
+            </div>
+            <div class="summary-grid">
+              <article class="metric-card">
+                <span>Completed Focus</span>
+                <strong id="focus-count">0</strong>
+              </article>
+              <article class="metric-card">
+                <span>Checked Todo</span>
+                <strong id="todo-count">0</strong>
+              </article>
+              <article class="metric-card">
+                <span>Remaining Nottodo</span>
+                <strong id="nottodo-count">0</strong>
+              </article>
+            </div>
+            <div id="calendar-grid" class="calendar-grid"></div>
+          </section>
 
-      <section id="builder-panel" class="panel hidden">
-        <div class="panel-header">
-          <h2>Custom Cycle Setup</h2>
-          <p>Drag focus cards to reorder them. Edges represent break time in seconds.</p>
-        </div>
-        <div class="builder-toolbar">
-          <input id="cycle-name" type="text" placeholder="Custom cycle name">
-          <button id="add-focus-btn" type="button" class="ghost">Add Focus</button>
-          <button id="remove-focus-btn" type="button" class="ghost">Remove Last</button>
-          <button id="save-cycle-btn" type="button">Save Custom Cycle</button>
-        </div>
-        <div id="builder-canvas" class="builder-canvas"></div>
-      </section>
+          <section id="collection-panel" class="glass-panel surface-panel">
+            <div class="panel-header panel-header-stack">
+              <div>
+                <p class="section-kicker">Collection</p>
+                <h2>Unlocked atmosphere sets</h2>
+              </div>
+              <p class="panel-caption">Collection is no longer a bottom-nav item. It now lives inside Dashboard.</p>
+            </div>
+            <div id="collection-list" class="collection-list"></div>
+          </section>
+        </section>
 
-      <section id="run-setup-panel" class="panel hidden">
-        <div class="panel-header">
-          <h2>Run Setup</h2>
-          <p id="run-setup-title"></p>
-        </div>
-        <div id="run-setup-list" class="run-setup-list"></div>
-        <div class="run-actions">
-          <button id="start-run-btn" type="button">Start Run</button>
-        </div>
-      </section>
+        <section id="timer-view" class="app-view hidden" data-view-panel="timer">
+          <div class="view-intro timer-intro">
+            <p class="section-kicker">Timer</p>
+            <h1>Atmosphere-first focus flow.</h1>
+            <p class="lead-copy">The active run, imagery, quote, progress, and task boundaries stay centered in one uninterrupted canvas.</p>
+          </div>
 
-      <section id="timer-panel" class="panel hidden">
-        <div id="timer-hero" class="timer-hero">
-          <div class="timer-overlay">
-            <div class="click-indicator">
-              <span class="click-indicator-label">Stop In 3 Taps</span>
-              <div class="click-dots">
-                <span class="click-dot" data-click-dot="0"></span>
-                <span class="click-dot" data-click-dot="1"></span>
-                <span class="click-dot" data-click-dot="2"></span>
+          <section id="timer-panel" class="timer-panel">
+            <div id="timer-hero" class="timer-hero">
+              <div class="timer-overlay">
+                <div class="timer-stage-copy">
+                  <p id="timer-mode" class="section-kicker timer-kicker">Idle</p>
+                  <div id="timer-orb" class="timer-orb">
+                    <div class="timer-orb-center">
+                      <h2 id="timer-clock" class="timer-clock">00:00</h2>
+                      <p class="timer-subtitle">Pure focus session</p>
+                    </div>
+                  </div>
+                  <p id="timer-quote" class="timer-quote">Choose a cycle in Setting and prepare a run.</p>
+                  <p id="timer-author" class="timer-author"></p>
+                  <p id="timer-source" class="timer-source"></p>
+                </div>
+
+                <div class="timer-footer">
+                  <div class="progress-shell">
+                    <div id="timer-progress" class="progress-bar"></div>
+                  </div>
+                  <div class="click-indicator">
+                    <span class="click-indicator-label">Stop In 3 Taps</span>
+                    <div class="click-dots">
+                      <span class="click-dot" data-click-dot="0"></span>
+                      <span class="click-dot" data-click-dot="1"></span>
+                      <span class="click-dot" data-click-dot="2"></span>
+                    </div>
+                  </div>
+                  <p class="timer-hint">Triple-click anywhere outside the modal to stop and reset the current run.</p>
+                </div>
               </div>
             </div>
-            <p id="timer-mode" class="eyebrow">Idle</p>
-            <h2 id="timer-clock">00</h2>
-            <p id="timer-quote" class="timer-quote">Choose a cycle and prepare a run.</p>
-            <p id="timer-author" class="timer-author"></p>
-            <p id="timer-source" class="timer-source"></p>
-            <div class="progress-shell">
-              <div id="timer-progress" class="progress-bar"></div>
-            </div>
-            <p class="timer-hint">Triple-click anywhere to stop and reset the current run.</p>
-          </div>
-        </div>
-        <div id="task-panel" class="task-panel"></div>
-      </section>
 
-      <section id="collection-panel" class="panel hidden">
-        <div class="panel-header">
-          <h2>Collection</h2>
-        </div>
-        <div id="collection-list" class="collection-list"></div>
-      </section>
+            <div id="task-panel" class="task-panel"></div>
+          </section>
+        </section>
+
+        <section id="setting-view" class="app-view hidden" data-view-panel="setting">
+          <div class="view-intro">
+            <p class="section-kicker">Setting</p>
+            <h1>Shape the next cycle.</h1>
+            <p class="lead-copy">Cycle selection, custom cycle building, and run preparation now live in one setup view.</p>
+          </div>
+
+          <section id="cycles-panel" class="glass-panel surface-panel">
+            <div class="panel-header panel-header-stack">
+              <div>
+                <p class="section-kicker">Cycle Library</p>
+                <h2>Choose a starting rhythm</h2>
+              </div>
+              <p class="panel-caption">Owned cycles can be customized. Trial cycles remain runnable presets.</p>
+            </div>
+            <div id="cycles-list" class="cycle-list"></div>
+          </section>
+
+          <section id="builder-panel" class="glass-panel surface-panel">
+            <div class="panel-header panel-header-stack">
+              <div>
+                <p class="section-kicker">Custom Cycle</p>
+                <h2>Build a personal cadence</h2>
+              </div>
+              <p class="panel-caption">Drag focus blocks to reorder them and connect each one with break duration.</p>
+            </div>
+            <div class="builder-toolbar">
+              <input id="cycle-name" type="text" placeholder="Custom cycle name">
+              <button id="add-focus-btn" type="button" class="ghost">Add Focus</button>
+              <button id="remove-focus-btn" type="button" class="ghost">Remove Last</button>
+              <button id="save-cycle-btn" type="button">Save Custom Cycle</button>
+            </div>
+            <div id="builder-canvas" class="builder-canvas"></div>
+          </section>
+
+          <section id="run-setup-panel" class="glass-panel surface-panel hidden">
+            <div class="panel-header panel-header-stack">
+              <div>
+                <p class="section-kicker">Run Setup</p>
+                <h2 id="run-setup-title">Prepare your next run</h2>
+              </div>
+              <p class="panel-caption">Define todo and nottodo lists for each focus block before starting.</p>
+            </div>
+            <div id="run-setup-list" class="run-setup-list"></div>
+            <div class="run-actions">
+              <button id="start-run-btn" type="button">Start Run</button>
+            </div>
+          </section>
+
+          <section class="glass-panel surface-panel session-panel">
+            <div class="panel-header panel-header-stack">
+              <div>
+                <p class="section-kicker">Session</p>
+                <h2>Current workspace</h2>
+              </div>
+              <p class="panel-caption">Header actions were removed, so account control now lives here.</p>
+            </div>
+            <div id="setting-identity" class="session-identity"></div>
+            <button id="logout-btn" class="ghost" type="button">Logout</button>
+          </section>
+        </section>
+      </div>
     </main>
+
+    <nav id="bottom-nav" class="bottom-nav hidden" aria-label="Primary">
+      <button class="nav-tab" data-view-target="timer" type="button">Timer</button>
+      <button class="nav-tab" data-view-target="dashboard" type="button">Dashboard</button>
+      <button class="nav-tab" data-view-target="setting" type="button">Setting</button>
+    </nav>
   </div>
 
   <div id="modal-backdrop" class="modal-backdrop hidden">

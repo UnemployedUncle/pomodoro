@@ -55,3 +55,15 @@ def test_focus_completion_and_reward_flow():
     collection_response = client.get("/collection")
     assert collection_response.status_code == 200
     assert collection_response.json()["items"]
+
+
+def test_index_contains_three_tab_shell():
+    response = client.get("/")
+    assert response.status_code == 200
+    html = response.text
+    assert "Pure Focus" in html
+    assert 'data-view-target="timer"' in html
+    assert 'data-view-target="dashboard"' in html
+    assert 'data-view-target="setting"' in html
+    assert 'data-view-target="collection"' not in html
+    assert "material-symbols-outlined" not in html
