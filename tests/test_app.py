@@ -24,6 +24,9 @@ def test_demo_login_and_seeded_cycles():
     items = cycles_response.json()["items"]
     assert any(item["name"] == "sample cycle 1" and item["owned"] for item in items)
     assert any(item["name"] == "sample cycle 2" and not item["owned"] for item in items)
+    first_photo_label = items[0]["focusNodes"][0]["photo"]["sourceLabel"]
+    assert first_photo_label != "Sample Unsplash Photo"
+    assert first_photo_label
 
 
 def test_focus_completion_and_reward_flow():
@@ -67,3 +70,4 @@ def test_index_contains_three_tab_shell():
     assert 'data-view-target="setting"' in html
     assert 'data-view-target="collection"' not in html
     assert "material-symbols-outlined" not in html
+    assert "Triple-click anywhere outside the modal to stop and reset the current run." not in html

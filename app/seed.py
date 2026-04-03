@@ -16,6 +16,21 @@ from app.models import UserAssetOwnership
 from app.models import UserCycleOwnership
 
 
+def photo_display_name(filename: str) -> str:
+    base_name = os.path.splitext(filename)[0]
+    if base_name.endswith("-unsplash"):
+        base_name = base_name[: -len("-unsplash")]
+    parts = [part for part in base_name.split("-") if part]
+    cleaned_parts = []
+    for part in parts:
+        if any(character.isdigit() for character in part):
+            break
+        cleaned_parts.append(part.capitalize())
+    if not cleaned_parts:
+        cleaned_parts = [base_name.replace("-", " ").title()]
+    return " ".join(cleaned_parts)
+
+
 def seed_reference_data(db: Session):
     photo_filenames = sorted(
         [name for name in os.listdir(SAMPLE_DIR) if name.lower().endswith(".jpg")]
@@ -26,16 +41,19 @@ def seed_reference_data(db: Session):
 
     photo_records = []
     for filename in photo_filenames:
+        display_name = photo_display_name(filename)
         photo = db.query(Photo).filter(Photo.storage_key == filename).first()
         if not photo:
             photo = Photo(
                 origin="sample",
                 storage_key=filename,
-                source_label="Sample Unsplash Photo",
+                source_label=display_name,
                 source_url="https://unsplash.com",
             )
             db.add(photo)
             db.flush()
+        elif photo.source_label != display_name:
+            photo.source_label = display_name
         photo_records.append(photo)
 
     quote_records = []

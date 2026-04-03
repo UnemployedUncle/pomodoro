@@ -12,7 +12,6 @@ const state = {
   timerInterval: null,
   dragIndex: null,
   clickBurst: [],
-  clickBurstResetTimer: null,
   audioContext: null,
   activeView: "dashboard",
 };
@@ -535,7 +534,7 @@ function renderRun() {
   elements.timerClock.textContent = formatSeconds(state.run.remainingSeconds);
   elements.timerQuote.textContent = currentNode.quote.text;
   elements.timerAuthor.textContent = currentNode.quote.authorName ? `Quote by ${currentNode.quote.authorName}` : "";
-  elements.timerSource.textContent = currentNode.photo.sourceLabel ? `Photo source ${currentNode.photo.sourceLabel}` : "";
+  elements.timerSource.textContent = currentNode.photo.sourceLabel || "";
   elements.timerHero.style.backgroundImage = `linear-gradient(180deg, rgba(7, 7, 7, 0.22), rgba(7, 7, 7, 0.76)), linear-gradient(120deg, rgba(16, 16, 16, 0.28), rgba(16, 16, 16, 0.48)), url('${currentNode.photo.url}')`;
   elements.timerProgress.style.width = `${Math.max(progress, 0)}%`;
   elements.timerOrb.style.setProperty("--timer-progress-deg", `${Math.max(progress, 0) * 3.6}deg`);
@@ -568,7 +567,7 @@ function renderTasks() {
     <div class="task-list">
       <h3>Todo</h3>
       ${focusState.todos.length ? focusState.todos.map((item, index) => `
-        <label class="task-item ${item.checked ? "todo-checked" : ""}">
+        <label class="task-item ${item.checked ? "todo-checked" : ""}" data-task-row="todo">
           <input data-task-type="todo" data-index="${index}" type="checkbox" ${item.checked ? "checked" : ""}>
           <span>${escapeHTML(item.content)}</span>
         </label>
@@ -706,16 +705,12 @@ function handleTripleClick(event) {
   if (event.target.closest(".modal-box")) {
     return;
   }
+  if (event.target.closest("[data-task-row='todo']")) {
+    return;
+  }
   const now = Date.now();
-  state.clickBurst = state.clickBurst.filter((item) => now - item < 800);
   state.clickBurst.push(now);
   renderClickDots(state.clickBurst.length);
-  if (state.clickBurstResetTimer) {
-    window.clearTimeout(state.clickBurstResetTimer);
-  }
-  state.clickBurstResetTimer = window.setTimeout(() => {
-    resetClickBurst();
-  }, 900);
   if (state.clickBurst.length >= 3) {
     playSessionEndSound();
     stopRunOnServer().finally(() => stopLocalRun(false));
@@ -730,10 +725,6 @@ function renderClickDots(count) {
 
 function resetClickBurst() {
   state.clickBurst = [];
-  if (state.clickBurstResetTimer) {
-    window.clearTimeout(state.clickBurstResetTimer);
-    state.clickBurstResetTimer = null;
-  }
   renderClickDots(0);
 }
 
